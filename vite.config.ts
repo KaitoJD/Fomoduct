@@ -21,11 +21,6 @@ export default defineConfig({
       }
     }
   },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
-  },
-  // Base URL cho custom domain
+  // Base URL cho GitHub Pages với custom domain
   base: '/',
 })
