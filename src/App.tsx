@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import PomodoroLogo from './components/PomodoroLogo'
+import './App.css'
 
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
@@ -21,19 +23,36 @@ function App() {
   }
 
   return (
-    <div style={{ textAlign: 'center', padding: '2rem' }}>
-      <h1>Pomodoro Timer</h1>
-      <div style={{ fontSize: '3rem', margin: '2rem 0' }}>
-        {formatTime(time)}
-      </div>
-      <div>
-        <button onClick={() => setIsRunning(!isRunning)}>
-          {isRunning ? 'Pause' : 'Start'}
-        </button>
-        <button onClick={() => setTime(25 * 60)}>
-          Reset
-        </button>
-      </div>
+    <div className="app">
+      <header className="app-header">
+        <div className="logo-container">
+          <PomodoroLogo size={64} className={isRunning ? 'running' : ''} />
+          <div className="title-container">
+            <h1 className="app-title">PomodoroFocus</h1>
+            <p className="app-subtitle">Focus & Productivity</p>
+          </div>
+        </div>
+      </header>
+      
+      <main className="timer-container">
+        <div className="timer-display">
+          {formatTime(time)}
+        </div>
+        <div className="timer-controls">
+          <button 
+            className={`control-btn ${isRunning ? 'pause' : 'start'}`}
+            onClick={() => setIsRunning(!isRunning)}
+          >
+            {isRunning ? '⏸️ Pause' : '▶️ Start'}
+          </button>
+          <button 
+            className="control-btn reset"
+            onClick={() => setTime(25 * 60)}
+          >
+            🔄 Reset
+          </button>
+        </div>
+      </main>
     </div>
   )
 }
