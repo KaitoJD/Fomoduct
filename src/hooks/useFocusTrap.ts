@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface UseFocusTrapOptions {
   isEnabled: boolean
@@ -11,8 +11,13 @@ interface UseFocusTrapOptions {
  * @param options - Configuration options for focus trap
  */
 export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocusTrapOptions) => {
+  const previousActiveElementRef = useRef<Element | null>(null)
+
   useEffect(() => {
     if (!isEnabled) return
+
+    // Store the currently active element before trapping focus
+    previousActiveElementRef.current = document.activeElement
 
     const container = document.querySelector(containerSelector)
     if (!container) return
@@ -87,6 +92,29 @@ export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocu
     // Cleanup
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
+      
+      // Restore focus to the previously active element
+      const previousElement = previousActiveElementRef.current as HTMLElement
+      if (previousElement && typeof previousElement.focus === 'function') {
+        // Check if the element is still in the DOM and is focusable
+        if (document.body.contains(previousElement)) {
+          try {
+            previousElement.focus()
+          } catch (error) {
+            console.warn('useFocusTrap: Failed to restore focus to previous element', error)
+          }
+        } else {
+          // If previous element is no longer in DOM, focus the body as fallback
+          try {
+            document.body.focus()
+          } catch (error) {
+            console.warn('useFocusTrap: Failed to focus body as fallback', error)
+          }
+        }
+      }
+      
+      // Clear the reference
+      previousActiveElementRef.current = null
     }
   }, [isEnabled, containerSelector, onEscape])
 }
