@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import { useScrollLock, useFocusTrap } from './hooks'
 
@@ -49,10 +49,15 @@ function App() {
 
   // Custom hooks for scroll lock and focus trap
   useScrollLock(isMenuOpen)
+  
+  const handleMenuEscape = useCallback(() => {
+    setIsMenuOpen(false)
+  }, [])
+  
   useFocusTrap({
     isEnabled: isMenuOpen,
     containerSelector: '.settings-menu',
-    onEscape: () => setIsMenuOpen(false)
+    onEscape: handleMenuEscape
   })
 
   const formatTime = (seconds: number) => {
