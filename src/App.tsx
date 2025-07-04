@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import PomodoroLogo from './components/PomodoroLogo'
 import './App.css'
 
 // Import background images
@@ -47,46 +46,46 @@ function App() {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
     }}>
-      <div className="overlay">
-      <header className="app-header">
-        <div className="logo-container">
-          <PomodoroLogo size={64} className={isRunning ? 'running' : ''} />
-          <div className="title-container">
-            <h1 className="app-title">PomodoroFocus</h1>
-            <p className="app-subtitle">Focus & Productivity</p>
+      <div className="content-wrapper">
+        <header className="hero-section">
+          <div className="hero-text">
+            <h1 className="hero-title">PomodoroFocus</h1>
+            <p className="hero-subtitle">Boost Your Productivity with Focused Work Sessions</p>
           </div>
-        </div>
-      </header>
-      
-      <main className="timer-container">
-        <div className="timer-display">
-          {formatTime(time)}
-        </div>
-        <div className="timer-controls">
+        </header>
+        
+        <main className="timer-section">
+          <div className="timer-card">
+            <div className="timer-display">
+              {formatTime(time)}
+            </div>
+            <div className="timer-controls">
+              <button 
+                className={`control-btn primary ${isRunning ? 'pause' : 'start'}`}
+                onClick={() => setIsRunning(!isRunning)}
+              >
+                {isRunning ? 'Pause' : 'Start'}
+              </button>
+              <button 
+                className="control-btn secondary reset"
+                onClick={() => setTime(25 * 60)}
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </main>
+        
+        <div className="background-controls">
           <button 
-            className={`control-btn ${isRunning ? 'pause' : 'start'}`}
-            onClick={() => setIsRunning(!isRunning)}
+            className="control-btn tertiary background-btn"
+            onClick={nextBackground}
+            title={`Current: ${backgrounds[currentBackground].name}`}
           >
-            {isRunning ? 'Pause' : 'Start'}
-          </button>
-          <button 
-            className="control-btn reset"
-            onClick={() => setTime(25 * 60)}
-          >
-            Reset
+            <span className="btn-icon">🎨</span>
+            <span className="btn-text">Change Scene</span>
           </button>
         </div>
-      </main>
-      
-      <div className="background-controls">
-        <button 
-          className="control-btn background-btn"
-          onClick={nextBackground}
-          title={`Current: ${backgrounds[currentBackground].name}`}
-        >
-          🎨 Change Background
-        </button>
-      </div>
       </div>
     </div>
   )
