@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import { useScrollLock, useFocusTrap } from './hooks'
 
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
@@ -46,72 +47,13 @@ function App() {
     return () => clearInterval(interval)
   }, [isRunning, time, isBreakTime, currentSession, workDuration, shortBreakDuration, longBreakDuration, sessionsBeforeLongBreak])
 
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      // Store original values
-      const originalOverflow = document.body.style.overflow
-      
-      // Prevent scrolling without layout shift (since scrollbar is hidden)
-      document.body.style.overflow = 'hidden'
-      
-      // Focus trap within menu
-      const settingsMenu = document.querySelector('.settings-menu')
-      const focusableElements = settingsMenu?.querySelectorAll(
-        'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-      const firstElement = focusableElements?.[0] as HTMLElement
-      const lastElement = focusableElements?.[focusableElements.length - 1] as HTMLElement
-      
-      // Prevent keyboard navigation to elements outside menu
-      const handleKeyDown = (e: KeyboardEvent) => {
-        // Allow ESC to close menu
-        if (e.key === 'Escape') {
-          setIsMenuOpen(false)
-          return
-        }
-        
-        // Handle Tab key for focus trap
-        if (e.key === 'Tab') {
-          if (e.shiftKey) {
-            // Shift + Tab
-            if (document.activeElement === firstElement) {
-              e.preventDefault()
-              lastElement?.focus()
-            }
-          } else {
-            // Tab
-            if (document.activeElement === lastElement) {
-              e.preventDefault()
-              firstElement?.focus()
-            }
-          }
-        }
-      }
-      
-      document.addEventListener('keydown', handleKeyDown)
-      
-      // Auto focus first element when menu opens
-      // Use requestAnimationFrame to ensure DOM is fully rendered before focusing
-      const focusFirstElement = () => {
-        requestAnimationFrame(() => {
-          firstElement?.focus()
-        })
-      }
-      focusFirstElement()
-      
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown)
-        // Restore original values
-        document.body.style.overflow = originalOverflow
-      }
-    }
-    
-    // Cleanup function to restore scroll when component unmounts
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isMenuOpen])
+  // Custom hooks for scroll lock and focus trap
+  useScrollLock(isMenuOpen)
+  useFocusTrap({
+    isEnabled: isMenuOpen,
+    containerSelector: '.settings-menu',
+    onEscape: () => setIsMenuOpen(false)
+  })
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
