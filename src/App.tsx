@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
-// Import single background image
-import bgImage from './assets/background.jpg'
-
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
   const [isRunning, setIsRunning] = useState(false)
@@ -165,12 +162,7 @@ function App() {
   }
 
   return (
-    <div className="app" style={{ 
-      backgroundImage: `url(${bgImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
+    <div className="app">
       <div className="content-wrapper">
         {/* Menu Button */}
         <button 

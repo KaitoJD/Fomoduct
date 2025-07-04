@@ -19,6 +19,11 @@ body::-webkit-scrollbar,
   min-height: 100vh;
   position: relative;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Background image styling */
+  background-image: url('./assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .content-wrapper {
