@@ -185,9 +185,15 @@ function App() {
         </button>
 
         {/* Sliding Menu */}
-        <div className={`settings-menu ${isMenuOpen ? 'open' : ''}`}>
+        <div 
+          className={`settings-menu ${isMenuOpen ? 'open' : ''}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="settings-menu-title"
+          aria-hidden={!isMenuOpen}
+        >
           <div className="menu-header">
-            <h3>Settings</h3>
+            <h3 id="settings-menu-title">Settings</h3>
             <button 
               className="close-btn"
               onClick={toggleMenu}
