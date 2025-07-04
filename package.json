@@ -1,9 +1,9 @@
 {
-  "name": "pomodoro-focus",
+  "name": "fomoduct",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://pomodoro.kaitojd.me",
+  "homepage": "https://fomoduct.kaitojd.me",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
