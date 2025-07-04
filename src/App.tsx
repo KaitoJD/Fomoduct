@@ -117,6 +117,7 @@ function App() {
           className={`menu-toggle ${isMenuOpen ? 'hidden' : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle Settings Menu"
+          aria-expanded={isMenuOpen}
         >
           <svg className="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14Z" fill="white"/>
