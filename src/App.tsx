@@ -92,7 +92,13 @@ function App() {
       document.addEventListener('keydown', handleKeyDown)
       
       // Auto focus first element when menu opens
-      setTimeout(() => firstElement?.focus(), 100)
+      // Use requestAnimationFrame to ensure DOM is fully rendered before focusing
+      const focusFirstElement = () => {
+        requestAnimationFrame(() => {
+          firstElement?.focus()
+        })
+      }
+      focusFirstElement()
       
       return () => {
         document.removeEventListener('keydown', handleKeyDown)
