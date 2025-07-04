@@ -4,7 +4,6 @@
 .app {
   min-height: 100vh;
   position: relative;
-  transition: background-image 0.8s ease-in-out;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
@@ -84,6 +83,24 @@
   min-width: 320px;
 }
 
+.session-info {
+  margin-bottom: 1.5rem;
+}
+
+.current-phase {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.session-counter {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
 .timer-display {
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 500;
@@ -137,39 +154,210 @@
   transform: scale(0.98);
 }
 
-/* Background controls */
-.background-controls {
+/* Menu Toggle Button */
+.menu-toggle {
   position: fixed;
   top: 2rem;
-  right: 2rem;
-  z-index: 1000;
-}
-
-.control-btn.tertiary {
+  left: 2rem;
+  z-index: 1001;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
-  color: white;
-  min-width: auto;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
-  border-radius: 8px;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 1.2rem;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
 }
 
-.control-btn.tertiary:hover {
+.menu-toggle.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.menu-toggle:hover {
   background: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
 }
 
-.btn-icon {
+.menu-toggle.hidden:hover {
+  transform: scale(0.8);
+}
+
+.menu-icon {
+  display: block;
+}
+
+/* Sliding Menu */
+.settings-menu {
+  position: fixed;
+  top: 0;
+  left: -350px;
+  width: 350px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.settings-menu.open {
+  left: 0;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 998; /* Below settings menu but above everything else */
+  cursor: pointer;
+  /* Prevent scroll and selection */
+  overflow: hidden;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Disable interactions when menu is open */
+.hero-section.menu-open,
+.timer-section.menu-open {
+  pointer-events: none;
+  user-select: none;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 1.5rem 1rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #2d3748;
+}
+
+.menu-content {
+  padding: 1.5rem;
+}
+
+.setting-group {
+  margin-bottom: 2rem;
+}
+
+.setting-group label {
+  display: block;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
   font-size: 1rem;
 }
 
-.btn-text {
-  font-weight: 500;
+.duration-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+.duration-btn {
+  background: #4facfe;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.duration-btn:hover {
+  background: #3b8bfd;
+  transform: scale(1.05);
+}
+
+.duration-input {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  width: 4rem;
+  text-align: center;
+  border: 2px solid rgba(79, 172, 254, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.duration-input:focus {
+  outline: none;
+  border-color: #4facfe;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+.duration-input:hover {
+  border-color: rgba(79, 172, 254, 0.4);
+}
+
+/* Remove default number input arrows */
+.duration-input::-webkit-outer-spin-button,
+.duration-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.duration-input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* Animations */
@@ -201,6 +389,12 @@
     max-width: 400px;
   }
   
+  .duration-input {
+    font-size: 1.25rem;
+    width: 3.5rem;
+    padding: 0.4rem 0.2rem;
+  }
+  
   .timer-controls {
     gap: 1rem;
   }
@@ -211,17 +405,14 @@
     font-size: 1rem;
   }
   
-  .background-controls {
-    position: relative;
-    top: auto;
-    right: auto;
-    margin-top: 2rem;
-    text-align: center;
+  .settings-menu {
+    width: 300px;
+    left: -300px;
   }
   
-  .control-btn.tertiary {
-    width: auto;
-    max-width: 200px;
+  .menu-toggle {
+    top: 1.5rem;
+    left: 1.5rem;
   }
 }
 
@@ -249,14 +440,19 @@
     max-width: 200px;
   }
   
-  .background-controls {
-    margin-top: 1.5rem;
+  .settings-menu {
+    width: 280px;
+    left: -280px;
   }
   
-  .control-btn.tertiary {
-    width: 100%;
-    max-width: 180px;
-    justify-content: center;
+  .menu-toggle {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .menu-content {
+    padding: 1rem;
   }
 }
 
