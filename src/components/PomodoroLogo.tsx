@@ -3,9 +3,16 @@ import React from 'react';
 interface LogoProps {
   size?: number;
   className?: string;
+  isDecorative?: boolean;
+  title?: string;
 }
 
-const PomodoroLogo: React.FC<LogoProps> = ({ size = 48, className = '' }) => {
+const PomodoroLogo: React.FC<LogoProps> = ({ 
+  size = 48, 
+  className = '', 
+  isDecorative = false,
+  title = 'Pomodoro Timer Logo'
+}) => {
   return (
     <svg 
       width={size} 
@@ -14,7 +21,11 @@ const PomodoroLogo: React.FC<LogoProps> = ({ size = 48, className = '' }) => {
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className={`pomodoro-logo ${className}`}
+      role={isDecorative ? 'presentation' : 'img'}
+      aria-hidden={isDecorative}
+      aria-label={isDecorative ? undefined : title}
     >
+      {!isDecorative && <title>{title}</title>}
       {/* Tomato body */}
       <circle cx="32" cy="36" r="24" fill="#E53E3E" stroke="#C53030" strokeWidth="2"/>
       
