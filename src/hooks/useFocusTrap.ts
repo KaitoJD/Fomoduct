@@ -22,8 +22,13 @@ export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocu
       'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
     )
     
+    // Early return if no focusable elements found
+    if (focusableElements.length === 0) {
+      console.warn(`useFocusTrap: No focusable elements found in container "${containerSelector}"`)
+      return
+    }
+    
     const firstElement = focusableElements[0] as HTMLElement
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
 
     // Handle keyboard navigation
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,17 +40,27 @@ export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocu
 
       // Handle Tab key for focus trap
       if (e.key === 'Tab') {
+        // Ensure we still have focusable elements (they might have changed)
+        const currentFocusableElements = container.querySelectorAll(
+          'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        
+        if (currentFocusableElements.length === 0) return
+        
+        const currentFirstElement = currentFocusableElements[0] as HTMLElement
+        const currentLastElement = currentFocusableElements[currentFocusableElements.length - 1] as HTMLElement
+        
         if (e.shiftKey) {
           // Shift + Tab - going backwards
-          if (document.activeElement === firstElement) {
+          if (document.activeElement === currentFirstElement) {
             e.preventDefault()
-            lastElement?.focus()
+            currentLastElement?.focus()
           }
         } else {
           // Tab - going forwards
-          if (document.activeElement === lastElement) {
+          if (document.activeElement === currentLastElement) {
             e.preventDefault()
-            firstElement?.focus()
+            currentFirstElement?.focus()
           }
         }
       }
@@ -54,7 +69,14 @@ export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocu
     // Auto focus first element when enabled
     const focusFirstElement = () => {
       requestAnimationFrame(() => {
-        firstElement?.focus()
+        // Double-check that element still exists and is focusable
+        if (firstElement && typeof firstElement.focus === 'function') {
+          try {
+            firstElement.focus()
+          } catch (error) {
+            console.warn('useFocusTrap: Failed to focus first element', error)
+          }
+        }
       })
     }
 
