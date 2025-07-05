@@ -74,6 +74,7 @@ export const SettingsMenu = ({
     <>
       {/* Sliding Menu */}
       <div 
+        id="settings-menu"
         ref={menuRef}
         className={`settings-menu ${isOpen ? 'open' : ''}`}
         role="dialog"
