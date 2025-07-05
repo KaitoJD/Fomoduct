@@ -73,7 +73,7 @@ function App() {
   }
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
+    setIsMenuOpen(prev => !prev)
   }
 
   const updateWorkDuration = useCallback((minutes: number) => {
