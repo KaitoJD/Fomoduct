@@ -94,7 +94,7 @@ export const SettingsMenu = ({
         
         <div className="menu-content">
           <div className="setting-group">
-            <label>Work Duration (minutes)</label>
+            <label htmlFor="work-duration-input">Work Duration (minutes)</label>
             <div className="duration-controls">
               <button 
                 onClick={() => updateWorkDuration(Math.max(1, workDuration - 1))}
@@ -103,6 +103,7 @@ export const SettingsMenu = ({
                 -
               </button>
               <input
+                id="work-duration-input"
                 type="number"
                 value={workDuration}
                 onChange={(e) => handleWorkDurationInput(e.target.value)}
@@ -120,7 +121,7 @@ export const SettingsMenu = ({
           </div>
 
           <div className="setting-group">
-            <label>Short Break Duration (minutes)</label>
+            <label htmlFor="short-break-input">Short Break Duration (minutes)</label>
             <div className="duration-controls">
               <button 
                 onClick={() => onShortBreakChange(Math.max(1, shortBreakDuration - 1))}
@@ -129,6 +130,7 @@ export const SettingsMenu = ({
                 -
               </button>
               <input
+                id="short-break-input"
                 type="number"
                 value={shortBreakDuration}
                 onChange={(e) => handleShortBreakInput(e.target.value)}
@@ -146,7 +148,7 @@ export const SettingsMenu = ({
           </div>
 
           <div className="setting-group">
-            <label>Long Break Duration (minutes)</label>
+            <label htmlFor="long-break-input">Long Break Duration (minutes)</label>
             <div className="duration-controls">
               <button 
                 onClick={() => onLongBreakChange(Math.max(1, longBreakDuration - 1))}
@@ -155,6 +157,7 @@ export const SettingsMenu = ({
                 -
               </button>
               <input
+                id="long-break-input"
                 type="number"
                 value={longBreakDuration}
                 onChange={(e) => handleLongBreakInput(e.target.value)}
@@ -172,7 +175,7 @@ export const SettingsMenu = ({
           </div>
 
           <div className="setting-group">
-            <label>Sessions Before Long Break</label>
+            <label htmlFor="sessions-input">Sessions Before Long Break</label>
             <div className="duration-controls">
               <button 
                 onClick={() => onSessionsChange(Math.max(2, sessionsBeforeLongBreak - 1))}
@@ -181,6 +184,7 @@ export const SettingsMenu = ({
                 -
               </button>
               <input
+                id="sessions-input"
                 type="number"
                 value={sessionsBeforeLongBreak}
                 onChange={(e) => handleSessionsInput(e.target.value)}
