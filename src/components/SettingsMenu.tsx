@@ -42,9 +42,9 @@ export const SettingsMenu = ({
     onEscape: handleMenuEscape
   })
 
-  const updateWorkDuration = (minutes: number) => {
+  const updateWorkDuration = useCallback((minutes: number) => {
     onWorkDurationChange(minutes)
-  }
+  }, [onWorkDurationChange])
 
   const handleWorkDurationInput = (value: string) => {
     const num = parseInt(value) || 1
