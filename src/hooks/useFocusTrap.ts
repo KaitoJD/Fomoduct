@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 
 interface UseFocusTrapOptions {
   isEnabled: boolean
-  containerSelector: string
+  containerSelector?: string
+  containerRef?: RefObject<HTMLElement | null>
   onEscape?: () => void
 }
 
@@ -10,7 +11,7 @@ interface UseFocusTrapOptions {
  * Custom hook to manage focus trap within a container
  * @param options - Configuration options for focus trap
  */
-export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocusTrapOptions) => {
+export const useFocusTrap = ({ isEnabled, containerSelector, containerRef, onEscape }: UseFocusTrapOptions) => {
   const previousActiveElementRef = useRef<Element | null>(null)
 
   useEffect(() => {
@@ -19,7 +20,8 @@ export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocu
     // Store the currently active element before trapping focus
     previousActiveElementRef.current = document.activeElement
 
-    const container = document.querySelector(containerSelector)
+    // Get container element from ref or selector
+    const container = containerRef?.current || (containerSelector ? document.querySelector(containerSelector) : null)
     if (!container) return
 
     // Get all focusable elements within the container
@@ -116,5 +118,5 @@ export const useFocusTrap = ({ isEnabled, containerSelector, onEscape }: UseFocu
       // Clear the reference
       previousActiveElementRef.current = null
     }
-  }, [isEnabled, containerSelector, onEscape])
+  }, [isEnabled, containerSelector, containerRef, onEscape])
 }

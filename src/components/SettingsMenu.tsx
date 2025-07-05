@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import { useScrollLock, useFocusTrap } from '../hooks'
 
 interface SettingsMenuProps {
@@ -26,6 +26,9 @@ export const SettingsMenu = ({
   onLongBreakChange,
   onSessionsChange
 }: SettingsMenuProps) => {
+  // Ref for the settings menu container
+  const menuRef = useRef<HTMLDivElement>(null)
+
   // Custom hooks for scroll lock and focus trap
   useScrollLock(isOpen)
   
@@ -35,7 +38,7 @@ export const SettingsMenu = ({
   
   useFocusTrap({
     isEnabled: isOpen,
-    containerSelector: '.settings-menu',
+    containerRef: menuRef,
     onEscape: handleMenuEscape
   })
 
@@ -71,6 +74,7 @@ export const SettingsMenu = ({
     <>
       {/* Sliding Menu */}
       <div 
+        ref={menuRef}
         className={`settings-menu ${isOpen ? 'open' : ''}`}
         role="dialog"
         aria-modal="true"
