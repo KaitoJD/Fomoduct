@@ -91,12 +91,12 @@ export const useFocusTrap = ({ isEnabled, containerSelector, containerRef, onEsc
     }
 
     // Set up event listener and initial focus
-    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleKeyDown, { capture: true })
     focusFirstElement()
 
     // Cleanup
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keydown', handleKeyDown, { capture: true })
       
       // Restore focus to the previously active element
       const previousElement = previousActiveElementRef.current as HTMLElement
