@@ -206,6 +206,7 @@ export const SettingsMenu = ({
           onClick={onClose}
           onWheel={(e) => e.preventDefault()}
           onTouchMove={(e) => e.preventDefault()}
+          aria-hidden="true"
         ></div>
       )}
     </>
