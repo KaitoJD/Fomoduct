@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import './App.css'
-import { useScrollLock, useFocusTrap } from './hooks'
+import { SettingsMenu } from './components'
 
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
@@ -47,19 +47,6 @@ function App() {
     return () => clearInterval(interval)
   }, [isRunning, time, isBreakTime, currentSession, workDuration, shortBreakDuration, longBreakDuration, sessionsBeforeLongBreak])
 
-  // Custom hooks for scroll lock and focus trap
-  useScrollLock(isMenuOpen)
-  
-  const handleMenuEscape = useCallback(() => {
-    setIsMenuOpen(false)
-  }, [])
-  
-  useFocusTrap({
-    isEnabled: isMenuOpen,
-    containerSelector: '.settings-menu',
-    onEscape: handleMenuEscape
-  })
-
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
@@ -70,36 +57,12 @@ function App() {
     setIsMenuOpen(!isMenuOpen)
   }
 
-  const updateWorkDuration = (minutes: number) => {
+  const updateWorkDuration = useCallback((minutes: number) => {
     setWorkDuration(minutes)
     if (!isRunning && !isBreakTime) {
       setTime(minutes * 60)
     }
-  }
-
-  const handleWorkDurationInput = (value: string) => {
-    const num = parseInt(value) || 1
-    const validNum = Math.max(1, Math.min(180, num)) // Limit between 1-180 minutes
-    updateWorkDuration(validNum)
-  }
-
-  const handleShortBreakInput = (value: string) => {
-    const num = parseInt(value) || 1
-    const validNum = Math.max(1, Math.min(60, num)) // Limit between 1-60 minutes
-    setShortBreakDuration(validNum)
-  }
-
-  const handleLongBreakInput = (value: string) => {
-    const num = parseInt(value) || 1
-    const validNum = Math.max(1, Math.min(120, num)) // Limit between 1-120 minutes
-    setLongBreakDuration(validNum)
-  }
-
-  const handleSessionsInput = (value: string) => {
-    const num = parseInt(value) || 2
-    const validNum = Math.max(2, Math.min(20, num)) // Limit between 2-20 sessions
-    setSessionsBeforeLongBreak(validNum)
-  }
+  }, [isRunning, isBreakTime])
 
   const resetTimer = () => {
     setTime(workDuration * 60)
@@ -130,141 +93,18 @@ function App() {
           </svg>
         </button>
 
-        {/* Sliding Menu */}
-        <div 
-          className={`settings-menu ${isMenuOpen ? 'open' : ''}`}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="settings-menu-title"
-          aria-hidden={!isMenuOpen}
-        >
-          <div className="menu-header">
-            <h3 id="settings-menu-title">Settings</h3>
-            <button 
-              className="close-btn"
-              onClick={toggleMenu}
-              aria-label="Close Menu"
-            >
-              ×
-            </button>
-          </div>
-          
-          <div className="menu-content">
-            <div className="setting-group">
-              <label>Work Duration (minutes)</label>
-              <div className="duration-controls">
-                <button 
-                  onClick={() => updateWorkDuration(Math.max(1, workDuration - 1))}
-                  className="duration-btn"
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  value={workDuration}
-                  onChange={(e) => handleWorkDurationInput(e.target.value)}
-                  className="duration-input"
-                  min="1"
-                  max="180"
-                />
-                <button 
-                  onClick={() => updateWorkDuration(workDuration + 1)}
-                  className="duration-btn"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            <div className="setting-group">
-              <label>Short Break Duration (minutes)</label>
-              <div className="duration-controls">
-                <button 
-                  onClick={() => setShortBreakDuration(Math.max(1, shortBreakDuration - 1))}
-                  className="duration-btn"
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  value={shortBreakDuration}
-                  onChange={(e) => handleShortBreakInput(e.target.value)}
-                  className="duration-input"
-                  min="1"
-                  max="60"
-                />
-                <button 
-                  onClick={() => setShortBreakDuration(shortBreakDuration + 1)}
-                  className="duration-btn"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            <div className="setting-group">
-              <label>Long Break Duration (minutes)</label>
-              <div className="duration-controls">
-                <button 
-                  onClick={() => setLongBreakDuration(Math.max(1, longBreakDuration - 1))}
-                  className="duration-btn"
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  value={longBreakDuration}
-                  onChange={(e) => handleLongBreakInput(e.target.value)}
-                  className="duration-input"
-                  min="1"
-                  max="120"
-                />
-                <button 
-                  onClick={() => setLongBreakDuration(longBreakDuration + 1)}
-                  className="duration-btn"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            <div className="setting-group">
-              <label>Sessions Before Long Break</label>
-              <div className="duration-controls">
-                <button 
-                  onClick={() => setSessionsBeforeLongBreak(Math.max(2, sessionsBeforeLongBreak - 1))}
-                  className="duration-btn"
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  value={sessionsBeforeLongBreak}
-                  onChange={(e) => handleSessionsInput(e.target.value)}
-                  className="duration-input"
-                  min="2"
-                  max="20"
-                />
-                <button 
-                  onClick={() => setSessionsBeforeLongBreak(sessionsBeforeLongBreak + 1)}
-                  className="duration-btn"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Full Screen Overlay - Blocks all interactions */}
-        {isMenuOpen && (
-          <div 
-            className="menu-overlay" 
-            onClick={toggleMenu}
-            onWheel={(e) => e.preventDefault()}
-            onTouchMove={(e) => e.preventDefault()}
-          ></div>
-        )}
+        <SettingsMenu
+          isOpen={isMenuOpen}
+          onClose={toggleMenu}
+          workDuration={workDuration}
+          shortBreakDuration={shortBreakDuration}
+          longBreakDuration={longBreakDuration}
+          sessionsBeforeLongBreak={sessionsBeforeLongBreak}
+          onWorkDurationChange={updateWorkDuration}
+          onShortBreakChange={setShortBreakDuration}
+          onLongBreakChange={setLongBreakDuration}
+          onSessionsChange={setSessionsBeforeLongBreak}
+        />
 
         <header className={`hero-section ${isMenuOpen ? 'menu-open' : ''}`}>
           <div className="hero-text">
