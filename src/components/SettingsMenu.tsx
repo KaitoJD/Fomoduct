@@ -48,7 +48,7 @@ export const SettingsMenu = ({
 
   // Generic helper to parse and clamp input values
   const clampInput = (value: string, min: number, max: number, defaultValue: number = min): number => {
-    const num = parseInt(value) || defaultValue
+    const num = parseInt(value, 10) || defaultValue
     return Math.max(min, Math.min(max, num))
   }
 
