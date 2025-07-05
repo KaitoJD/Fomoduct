@@ -8,6 +8,7 @@ export const useScrollLock = (isLocked: boolean) => {
   const originalOverflowRef = useRef<string | null>(null)
   const hasModifiedRef = useRef<boolean>(false)
 
+  // Consolidated scroll lock/unlock logic
   useEffect(() => {
     if (isLocked) {
       // Store original overflow value only if we haven't stored it yet
@@ -18,13 +19,6 @@ export const useScrollLock = (isLocked: boolean) => {
       // Lock scroll
       document.body.style.overflow = 'hidden'
       hasModifiedRef.current = true
-      
-      // Cleanup function to restore scroll
-      return () => {
-        if (hasModifiedRef.current && originalOverflowRef.current !== null) {
-          document.body.style.overflow = originalOverflowRef.current
-        }
-      }
     } else {
       // If unlocked, restore original value if we had modified it
       if (hasModifiedRef.current && originalOverflowRef.current !== null) {
@@ -33,10 +27,8 @@ export const useScrollLock = (isLocked: boolean) => {
         originalOverflowRef.current = null
       }
     }
-  }, [isLocked])
-  
-  // Cleanup on component unmount - only restore if we modified it
-  useEffect(() => {
+
+    // Cleanup on effect change or component unmount
     return () => {
       if (hasModifiedRef.current && originalOverflowRef.current !== null) {
         document.body.style.overflow = originalOverflowRef.current
@@ -45,5 +37,5 @@ export const useScrollLock = (isLocked: boolean) => {
         originalOverflowRef.current = null
       }
     }
-  }, [])
+  }, [isLocked])
 }
