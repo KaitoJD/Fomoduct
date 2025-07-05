@@ -31,7 +31,10 @@ export const useFocusTrap = ({ isEnabled, containerSelector, containerRef, onEsc
     
     // Early return if no focusable elements found
     if (focusableElements.length === 0) {
-      console.warn(`useFocusTrap: No focusable elements found in container "${containerSelector}"`)
+      const containerDescription = containerRef 
+        ? 'container (via ref)' 
+        : `container "${containerSelector}"`
+      console.warn(`useFocusTrap: No focusable elements found in ${containerDescription}`)
       return
     }
     
