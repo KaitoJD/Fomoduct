@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import './App.css'
 import { SettingsMenu } from './components'
 
@@ -15,37 +15,56 @@ function App() {
   const [longBreakDuration, setLongBreakDuration] = useState(15)
   const [sessionsBeforeLongBreak, setSessionsBeforeLongBreak] = useState(4)
 
+  // Use refs to access latest state values in the interval callback
+  const timeRef = useRef(time)
+  const isBreakTimeRef = useRef(isBreakTime)
+  const currentSessionRef = useRef(currentSession)
+  const workDurationRef = useRef(workDuration)
+  const shortBreakDurationRef = useRef(shortBreakDuration)
+  const longBreakDurationRef = useRef(longBreakDuration)
+  const sessionsBeforeLongBreakRef = useRef(sessionsBeforeLongBreak)
+
+  // Update refs when state changes
+  timeRef.current = time
+  isBreakTimeRef.current = isBreakTime
+  currentSessionRef.current = currentSession
+  workDurationRef.current = workDuration
+  shortBreakDurationRef.current = shortBreakDuration
+  longBreakDurationRef.current = longBreakDuration
+  sessionsBeforeLongBreakRef.current = sessionsBeforeLongBreak
+
   useEffect(() => {
     if (!isRunning) return
-    
-    if (time === 0) {
-      // Timer finished - auto switch between work and break
-      if (isBreakTime) {
-        // Break finished, start new work session
-        setIsBreakTime(false)
-        setTime(workDuration * 60)
-      } else {
-        // Work session finished, start break
-        const completedSessions = currentSession + 1
-        setCurrentSession(completedSessions)
-        setIsBreakTime(true)
-        
-        // Determine if it's time for long break
-        if (completedSessions % sessionsBeforeLongBreak === 0) {
-          setTime(longBreakDuration * 60)
-        } else {
-          setTime(shortBreakDuration * 60)
-        }
-      }
-      return
-    }
 
     const interval = setInterval(() => {
-      setTime(prev => prev - 1)
+      const currentTime = timeRef.current
+      
+      if (currentTime === 0) {
+        // Timer finished - auto switch between work and break
+        if (isBreakTimeRef.current) {
+          // Break finished, start new work session
+          setIsBreakTime(false)
+          setTime(workDurationRef.current * 60)
+        } else {
+          // Work session finished, start break
+          const completedSessions = currentSessionRef.current + 1
+          setCurrentSession(completedSessions)
+          setIsBreakTime(true)
+          
+          // Determine if it's time for long break
+          if (completedSessions % sessionsBeforeLongBreakRef.current === 0) {
+            setTime(longBreakDurationRef.current * 60)
+          } else {
+            setTime(shortBreakDurationRef.current * 60)
+          }
+        }
+      } else {
+        setTime(prev => prev - 1)
+      }
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [isRunning, time, isBreakTime, currentSession, workDuration, shortBreakDuration, longBreakDuration, sessionsBeforeLongBreak])
+  }, [isRunning]) // Only depend on isRunning
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
