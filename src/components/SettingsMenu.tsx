@@ -46,27 +46,29 @@ export const SettingsMenu = ({
     onWorkDurationChange(minutes)
   }, [onWorkDurationChange])
 
+  // Generic helper to parse and clamp input values
+  const clampInput = (value: string, min: number, max: number, defaultValue: number = min): number => {
+    const num = parseInt(value) || defaultValue
+    return Math.max(min, Math.min(max, num))
+  }
+
   const handleWorkDurationInput = (value: string) => {
-    const num = parseInt(value) || 1
-    const validNum = Math.max(1, Math.min(180, num)) // Limit between 1-180 minutes
+    const validNum = clampInput(value, 1, 180, 1)
     updateWorkDuration(validNum)
   }
 
   const handleShortBreakInput = (value: string) => {
-    const num = parseInt(value) || 1
-    const validNum = Math.max(1, Math.min(60, num)) // Limit between 1-60 minutes
+    const validNum = clampInput(value, 1, 60, 1)
     onShortBreakChange(validNum)
   }
 
   const handleLongBreakInput = (value: string) => {
-    const num = parseInt(value) || 1
-    const validNum = Math.max(1, Math.min(120, num)) // Limit between 1-120 minutes
+    const validNum = clampInput(value, 1, 120, 1)
     onLongBreakChange(validNum)
   }
 
   const handleSessionsInput = (value: string) => {
-    const num = parseInt(value) || 2
-    const validNum = Math.max(2, Math.min(20, num)) // Limit between 2-20 sessions
+    const validNum = clampInput(value, 2, 20, 2)
     onSessionsChange(validNum)
   }
 
