@@ -40,6 +40,9 @@ export const useScrollLock = (isLocked: boolean) => {
     return () => {
       if (hasModifiedRef.current && originalOverflowRef.current !== null) {
         document.body.style.overflow = originalOverflowRef.current
+        // Reset refs to avoid stale state if hook is reused
+        hasModifiedRef.current = false
+        originalOverflowRef.current = null
       }
     }
   }, [])
