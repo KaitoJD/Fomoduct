@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react'
  */
 export const useScrollLock = (isLocked: boolean) => {
   const originalOverflowRef = useRef<string | null>(null)
-  const hasModifiedRef = useRef<boolean>(false)
+  const isOverflowModifiedRef = useRef<boolean>(false)
 
   // Consolidated scroll lock/unlock logic
   useEffect(() => {
@@ -18,22 +18,22 @@ export const useScrollLock = (isLocked: boolean) => {
       
       // Lock scroll
       document.body.style.overflow = 'hidden'
-      hasModifiedRef.current = true
+      isOverflowModifiedRef.current = true
     } else {
       // If unlocked, restore original value if we had modified it
-      if (hasModifiedRef.current && originalOverflowRef.current !== null) {
+      if (isOverflowModifiedRef.current && originalOverflowRef.current !== null) {
         document.body.style.overflow = originalOverflowRef.current
-        hasModifiedRef.current = false
+        isOverflowModifiedRef.current = false
         originalOverflowRef.current = null
       }
     }
 
     // Cleanup on effect change or component unmount
     return () => {
-      if (hasModifiedRef.current && originalOverflowRef.current !== null) {
+      if (isOverflowModifiedRef.current && originalOverflowRef.current !== null) {
         document.body.style.overflow = originalOverflowRef.current
         // Reset refs to avoid stale state if hook is reused
-        hasModifiedRef.current = false
+        isOverflowModifiedRef.current = false
         originalOverflowRef.current = null
       }
     }
