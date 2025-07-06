@@ -100,6 +100,7 @@ export const SettingsMenu = ({
             <label htmlFor="work-duration-input">Work Duration (minutes)</label>
             <div className="duration-controls">
               <button 
+                type="button"
                 onClick={() => updateWorkDuration(Math.max(1, workDuration - 1))}
                 className="duration-btn"
               >
@@ -115,6 +116,7 @@ export const SettingsMenu = ({
                 max="180"
               />
               <button 
+                type="button"
                 onClick={() => updateWorkDuration(workDuration + 1)}
                 className="duration-btn"
               >
@@ -127,6 +129,7 @@ export const SettingsMenu = ({
             <label htmlFor="short-break-input">Short Break Duration (minutes)</label>
             <div className="duration-controls">
               <button 
+                type="button"
                 onClick={() => onShortBreakChange(Math.max(1, shortBreakDuration - 1))}
                 className="duration-btn"
               >
@@ -142,6 +145,7 @@ export const SettingsMenu = ({
                 max="60"
               />
               <button 
+                type="button"
                 onClick={() => onShortBreakChange(shortBreakDuration + 1)}
                 className="duration-btn"
               >
@@ -154,6 +158,7 @@ export const SettingsMenu = ({
             <label htmlFor="long-break-input">Long Break Duration (minutes)</label>
             <div className="duration-controls">
               <button 
+                type="button"
                 onClick={() => onLongBreakChange(Math.max(1, longBreakDuration - 1))}
                 className="duration-btn"
               >
@@ -169,6 +174,7 @@ export const SettingsMenu = ({
                 max="120"
               />
               <button 
+                type="button"
                 onClick={() => onLongBreakChange(longBreakDuration + 1)}
                 className="duration-btn"
               >
@@ -181,6 +187,7 @@ export const SettingsMenu = ({
             <label htmlFor="sessions-input">Sessions Before Long Break</label>
             <div className="duration-controls">
               <button 
+                type="button"
                 onClick={() => onSessionsChange(Math.max(2, sessionsBeforeLongBreak - 1))}
                 className="duration-btn"
               >
@@ -196,6 +203,7 @@ export const SettingsMenu = ({
                 max="20"
               />
               <button 
+                type="button"
                 onClick={() => onSessionsChange(sessionsBeforeLongBreak + 1)}
                 className="duration-btn"
               >

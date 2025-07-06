@@ -146,12 +146,14 @@ function App() {
             </div>
             <div className="timer-controls">
               <button 
+                type="button"
                 className={`control-btn primary ${isRunning ? 'pause' : 'start'}`}
                 onClick={() => setIsRunning(!isRunning)}
               >
                 {isRunning ? 'Pause' : 'Start'}
               </button>
               <button 
+                type="button"
                 className="control-btn secondary reset"
                 onClick={resetTimer}
               >
