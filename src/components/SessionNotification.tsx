@@ -103,7 +103,15 @@ export const SessionNotification: React.FC<SessionNotificationProps> = ({
       <div 
         className={`notification-backdrop ${isAnimating ? 'visible' : ''}`}
         onClick={handleClose}
-        aria-hidden="true"
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleClose()
+          }
+        }}
+        aria-label="Close notification"
       />
       
       {/* Notification Popup */}
