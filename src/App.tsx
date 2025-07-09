@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import './App.css'
-import { SettingsMenu } from './components'
+import { SettingsMenu, SessionNotification } from './components'
 
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
@@ -8,6 +8,11 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentSession, setCurrentSession] = useState(0) // Track completed work sessions
   const [isBreakTime, setIsBreakTime] = useState(false) // Track if currently in break
+  
+  // Notification state
+  const [showNotification, setShowNotification] = useState(false)
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationSessionType, setNotificationSessionType] = useState<'work' | 'break'>('work')
   
   // Settings state
   const [workDuration, setWorkDuration] = useState(25)
@@ -40,23 +45,32 @@ function App() {
       const currentTime = timeRef.current
       
       if (currentTime === 0) {
-        // Timer finished - auto switch between work and break
+        // Timer finished - pause timer and show notification
+        setIsRunning(false)
+        
         if (isBreakTimeRef.current) {
-          // Break finished, start new work session
+          // Break finished, prepare for next work session
           setIsBreakTime(false)
           setTime(workDurationRef.current * 60)
+          setNotificationSessionType('break')
+          setNotificationMessage(`Break time is over! Ready to start your next work session?`)
+          setShowNotification(true)
         } else {
-          // Work session finished, start break
+          // Work session finished, prepare for break
           const completedSessions = currentSessionRef.current + 1
           setCurrentSession(completedSessions)
           setIsBreakTime(true)
+          setNotificationSessionType('work')
           
-          // Determine if it's time for long break
+          // Determine if it's time for long break and set timer accordingly
           if (completedSessions % sessionsBeforeLongBreakRef.current === 0) {
             setTime(longBreakDurationRef.current * 60)
+            setNotificationMessage(`Great job! You've completed ${completedSessions} work sessions. Time for a long break!`)
           } else {
             setTime(shortBreakDurationRef.current * 60)
+            setNotificationMessage(`Work session completed! You've earned a short break.`)
           }
+          setShowNotification(true)
         }
       } else {
         setTime(prev => prev - 1)
@@ -88,6 +102,10 @@ function App() {
     setIsRunning(false)
     setIsBreakTime(false)
     setCurrentSession(0)
+    // Reset notification state
+    setShowNotification(false)
+    setNotificationMessage('')
+    setNotificationSessionType('work')
   }
 
   const getCurrentPhase = () => {
@@ -95,6 +113,38 @@ function App() {
     const isLongBreak = currentSession % sessionsBeforeLongBreak === 0
     return isLongBreak ? 'Long Break' : 'Short Break'
   }
+
+  const handleNotificationClose = useCallback(() => {
+    setShowNotification(false)
+    // Reset notification state to prevent re-showing
+    setNotificationMessage('')
+    setNotificationSessionType('work')
+  }, [])
+
+  const handleStartNextSession = useCallback(() => {
+    // Reset notification state and start the timer
+    // The timer and session state are already prepared when the previous session ended
+    setShowNotification(false)
+    setNotificationMessage('')
+    setNotificationSessionType('work')
+    setIsRunning(true)
+  }, [])
+
+  // Request notification permission on component mount
+  useEffect(() => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission()
+    }
+  }, [])
+
+  // Reset notification when timer starts
+  useEffect(() => {
+    if (isRunning) {
+      setShowNotification(false)
+      setNotificationMessage('')
+      setNotificationSessionType('work')
+    }
+  }, [isRunning])
 
   return (
     <div className="app">
@@ -162,6 +212,16 @@ function App() {
             </div>
           </div>
         </main>
+
+        {/* Session Notification */}
+        <SessionNotification
+          isVisible={showNotification}
+          message={notificationMessage}
+          sessionType={notificationSessionType}
+          onClose={handleNotificationClose}
+          onStartNext={handleStartNextSession}
+          autoCloseDelay={8000}
+        />
       </div>
     </div>
   )
