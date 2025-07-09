@@ -21,7 +21,7 @@ export const SessionNotification: React.FC<SessionNotificationProps> = ({
 }) => {
   const [isAnimating, setIsAnimating] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
-  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Set up focus trap when notification is visible
   useFocusTrap({ 
