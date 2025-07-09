@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 import '../styles/SessionNotification.css'
 
@@ -21,6 +21,7 @@ export const SessionNotification: React.FC<SessionNotificationProps> = ({
 }) => {
   const [isAnimating, setIsAnimating] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Set up focus trap when notification is visible
   useFocusTrap({ 
@@ -30,10 +31,17 @@ export const SessionNotification: React.FC<SessionNotificationProps> = ({
 
   const handleClose = useCallback(() => {
     setIsAnimating(false)
+    
+    // Clear any existing close timeout
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+    }
+    
     // Wait for exit animation to complete
-    setTimeout(() => {
+    closeTimeoutRef.current = setTimeout(() => {
       setShowNotification(false)
       onClose()
+      closeTimeoutRef.current = null
     }, 300)
   }, [onClose])
 
@@ -64,6 +72,15 @@ export const SessionNotification: React.FC<SessionNotificationProps> = ({
       setShowNotification(false)
     }
   }, [isVisible, autoCloseDelay, handleClose])
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current)
+      }
+    }
+  }, [])
 
   // Play notification sound and show browser notification
   useEffect(() => {
