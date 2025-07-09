@@ -160,36 +160,6 @@
   transform: scale(1.1);
 }
 
-/* Animations */
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.3);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05);
-  }
-  70% {
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-  }
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .notification-popup {
