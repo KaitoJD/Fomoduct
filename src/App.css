@@ -31,8 +31,8 @@ body::-webkit-scrollbar,
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  justify-content: flex-start;
+  padding: 4rem 2rem 2rem 2rem;
   position: relative;
   z-index: 2;
   
@@ -51,7 +51,6 @@ body::-webkit-scrollbar,
 .hero-section {
   text-align: center;
   margin-bottom: 4rem;
-  animation: fadeInUp 0.8s ease-out;
 }
 
 .hero-text {
@@ -86,6 +85,23 @@ body::-webkit-scrollbar,
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+}
+
+.panels-container {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  align-items: stretch; /* Ensures both panels have equal height */
+}
+
+.timer-panel,
+.task-panel {
+  flex: 1; /* Each panel takes equal width */
+  display: flex;
+  flex-direction: column;
 }
 
 .timer-card {
@@ -98,8 +114,30 @@ body::-webkit-scrollbar,
     0 8px 32px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
   text-align: center;
   min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+}
+
+.task-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 32px;
+  padding: 3rem 2.5rem;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
+  text-align: center;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  /* No justify-content so content can grow naturally */
 }
 
 .session-info {
@@ -146,7 +184,6 @@ body::-webkit-scrollbar,
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
-  transition: all 0.2s ease;
   min-width: 140px;
   border: 2px solid transparent;
 }
@@ -169,67 +206,16 @@ body::-webkit-scrollbar,
   background: #5a6268;
 }
 
-.control-btn:active {
-  transform: scale(0.98);
-}
-
-/* Menu Toggle Button */
-.menu-toggle {
-  position: fixed;
-  top: 2rem;
-  left: 2rem;
-  z-index: 1001;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 0.75rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: white;
-  font-size: 1.2rem;
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-}
-
-.menu-toggle.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(0.8);
-  pointer-events: none;
-}
-
-.menu-toggle:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: scale(1.05);
-}
-
-.menu-toggle.hidden:hover {
-  transform: scale(0.8);
-}
-
-.menu-icon {
-  display: block;
-  transition: all 0.2s ease;
-}
-
-.menu-toggle:hover .menu-icon {
-  transform: rotate(90deg);
-}
-
 /* Sliding Menu */
 .settings-menu {
   position: fixed;
   top: 0;
-  left: -350px;
+  right: -350px;
   width: 350px;
   height: 100vh;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 1000;
   overflow-y: auto;
   /* Hide scrollbar but keep functionality */
@@ -242,7 +228,7 @@ body::-webkit-scrollbar,
 }
 
 .settings-menu.open {
-  left: 0;
+  right: 0;
 }
 
 .menu-overlay {
@@ -300,7 +286,6 @@ body::-webkit-scrollbar,
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: all 0.2s ease;
 }
 
 .close-btn:hover {
@@ -344,7 +329,6 @@ body::-webkit-scrollbar,
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -352,7 +336,6 @@ body::-webkit-scrollbar,
 
 .duration-btn:hover {
   background: #3b8bfd;
-  transform: scale(1.05);
 }
 
 .duration-input {
@@ -365,7 +348,6 @@ body::-webkit-scrollbar,
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.9);
   padding: 0.5rem 0.25rem;
-  transition: all 0.2s ease;
 }
 
 .duration-input:focus {
@@ -391,33 +373,145 @@ body::-webkit-scrollbar,
   appearance: textfield;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Task Tracker Styles */
+.task-header {
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-/* Responsive design */
+.task-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Take up remaining space */
+  min-height: 0; /* Allow shrinking */
+}
+
+.task-list {
+  flex: 1; /* Take up available space */
+  margin-bottom: 2rem;
+  min-height: 200px; /* Minimum height for better appearance */
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.task-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.task-item.placeholder {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.task-checkbox:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.task-text {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.task-stats {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Responsive Design for Panels */
 @media (max-width: 768px) {
-  .content-wrapper {
-    padding: 1.5rem;
+  .panels-container {
+    flex-direction: column;
+    gap: 1.5rem;
   }
   
-  .hero-section {
-    margin-bottom: 3rem;
+  .timer-panel,
+  .task-panel {
+    flex: none; /* Don't use flex on mobile */
+  }
+  
+  .timer-card,
+  .task-card {
+    padding: 2rem 1.5rem;
+    min-height: auto; /* Allow natural height */
   }
   
   .timer-card {
-    padding: 2.5rem 2rem;
-    min-width: auto;
-    width: 100%;
-    max-width: 400px;
+    justify-content: center; /* Keep timer centered on mobile */
+  }
+  
+  .task-list {
+    min-height: 150px; /* Smaller min-height on mobile */
+  }
+  
+  .task-stats {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 3rem 1.5rem 1.5rem 1.5rem;
+  }
+  
+  .timer-section {
+    margin-bottom: 1.5rem;
   }
   
   .duration-input {
@@ -438,26 +532,13 @@ body::-webkit-scrollbar,
   
   .settings-menu {
     width: 300px;
-    left: -300px;
-  }
-  
-  .menu-toggle {
-    top: 1.5rem;
-    left: 1.5rem;
+    right: -300px;
   }
 }
 
 @media (max-width: 480px) {
   .content-wrapper {
-    padding: 1rem;
-  }
-  
-  .hero-section {
-    margin-bottom: 2rem;
-  }
-  
-  .timer-card {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1rem 1rem 1rem;
   }
   
   .timer-controls {
@@ -473,13 +554,7 @@ body::-webkit-scrollbar,
   
   .settings-menu {
     width: 280px;
-    left: -280px;
-  }
-  
-  .menu-toggle {
-    top: 1rem;
-    left: 1rem;
-    padding: 0.5rem;
+    right: -280px;
   }
   
   .menu-content {

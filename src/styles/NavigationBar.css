@@ -1,0 +1,157 @@
+/* Navigation Bar Styles */
+.navigation-bar {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1002;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 0.5rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 0.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  min-width: 60px;
+  position: relative;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 1);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 1);
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-radius: 2px;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  letter-spacing: 0.025em;
+}
+
+/* Timer Navigation Specific Styles */
+.timer-nav:hover .nav-icon {
+  color: #4facfe;
+}
+
+/* Settings Navigation Specific Styles */
+.settings-nav:hover .nav-icon,
+.settings-nav.active .nav-icon {
+  color: #4facfe;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navigation-bar {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+  
+  .nav-item {
+    min-width: 50px;
+    padding: 0.5rem 0.375rem;
+  }
+  
+  .nav-label {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation-bar {
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .nav-item {
+    min-width: 45px;
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .nav-label {
+    font-size: 0.625rem;
+  }
+}
+
+/* Hide navigation when settings menu is open */
+.navigation-bar.menu-open {
+  right: 350px;
+}
+
+/* Responsive adjustments for menu-open state */
+@media (max-width: 768px) {
+  .navigation-bar.menu-open {
+    right: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation-bar.menu-open {
+    right: 280px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .navigation-bar {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav-item.active {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
