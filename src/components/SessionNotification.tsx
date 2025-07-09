@@ -106,7 +106,7 @@ export const SessionNotification: React.FC<SessionNotificationProps> = ({
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
             e.preventDefault()
             handleClose()
           }
