@@ -54,7 +54,6 @@ function App() {
           setTime(workDurationRef.current * 60)
           setNotificationSessionType('break')
           setNotificationMessage(`Break time is over! Ready to start your next work session?`)
-          setShowNotification(true)
         } else {
           // Work session finished, prepare for break
           const completedSessions = currentSessionRef.current + 1
@@ -70,8 +69,10 @@ function App() {
             setTime(shortBreakDurationRef.current * 60)
             setNotificationMessage(`Work session completed! You've earned a short break.`)
           }
-          setShowNotification(true)
         }
+        
+        // Show notification after session transition
+        setShowNotification(true)
       } else {
         setTime(prev => prev - 1)
       }
