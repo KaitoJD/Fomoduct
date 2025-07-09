@@ -103,9 +103,7 @@ function App() {
     setIsBreakTime(false)
     setCurrentSession(0)
     // Reset notification state
-    setShowNotification(false)
-    setNotificationMessage('')
-    setNotificationSessionType('work')
+    resetNotificationState()
   }
 
   const getCurrentPhase = () => {
@@ -114,21 +112,23 @@ function App() {
     return isLongBreak ? 'Long Break' : 'Short Break'
   }
 
-  const handleNotificationClose = useCallback(() => {
+  // Helper function to reset notification state
+  const resetNotificationState = useCallback(() => {
     setShowNotification(false)
-    // Reset notification state to prevent re-showing
     setNotificationMessage('')
     setNotificationSessionType('work')
   }, [])
 
+  const handleNotificationClose = useCallback(() => {
+    resetNotificationState()
+  }, [resetNotificationState])
+
   const handleStartNextSession = useCallback(() => {
     // Reset notification state and start the timer
     // The timer and session state are already prepared when the previous session ended
-    setShowNotification(false)
-    setNotificationMessage('')
-    setNotificationSessionType('work')
+    resetNotificationState()
     setIsRunning(true)
-  }, [])
+  }, [resetNotificationState])
 
   // Request notification permission on component mount
   useEffect(() => {
@@ -140,11 +140,9 @@ function App() {
   // Reset notification when timer starts
   useEffect(() => {
     if (isRunning) {
-      setShowNotification(false)
-      setNotificationMessage('')
-      setNotificationSessionType('work')
+      resetNotificationState()
     }
-  }, [isRunning])
+  }, [isRunning, resetNotificationState])
 
   return (
     <div className="app">
