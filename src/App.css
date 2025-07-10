@@ -32,7 +32,7 @@ body::-webkit-scrollbar,
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 4rem 2rem 2rem 2rem;
+  padding: 6rem 2rem 2rem 2rem; /* Increased top padding for fixed header */
   position: relative;
   z-index: 2;
   
@@ -88,6 +88,14 @@ body::-webkit-scrollbar,
   width: 100%;
   max-width: 1200px;
   margin: 0 auto 2rem auto;
+  padding-right: 120px; /* Add padding to account for right navigation bar */
+}
+
+/* Remove right padding on mobile */
+@media (max-width: 768px) {
+  .timer-section {
+    padding-right: 0;
+  }
 }
 
 .panels-container {
@@ -217,56 +225,33 @@ body::-webkit-scrollbar,
   background: #5a6268;
 }
 
-/* Sliding Menu */
+/* Settings Menu */
 .settings-menu {
-  position: fixed;
-  top: 0;
-  right: -350px;
-  width: 350px;
-  height: 100vh;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
-  z-index: 1000;
-  overflow-y: auto;
-  /* Hide scrollbar but keep functionality */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.settings-menu::-webkit-scrollbar {
-  display: none;
-}
-
-.settings-menu.open {
-  right: 0;
-}
-
-.menu-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  z-index: 998; /* Below settings menu but above everything else */
-  cursor: pointer;
-  /* Prevent scroll and selection */
-  overflow: hidden;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 1200; /* Above header */
+  overflow-y: auto;
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-top: 6rem; /* Add padding to account for header */
+  transform: translateX(100%); /* Initially hide the menu */
+  transition: transform 0.3s ease; /* Smooth transition */
+  visibility: hidden;
 }
 
-/* Disable interactions when menu is open */
-.hero-section.menu-open,
-.timer-section.menu-open {
-  pointer-events: none;
-  user-select: none;
+.settings-menu.open {
+  transform: translateX(0); /* Show the menu when open */
+  visibility: visible;
+}
+
+.settings-menu::-webkit-scrollbar {
+  display: none;
 }
 
 .menu-header {
@@ -275,6 +260,8 @@ body::-webkit-scrollbar,
   align-items: center;
   padding: 2rem 1.5rem 1rem 1.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .menu-header h3 {
@@ -306,6 +293,8 @@ body::-webkit-scrollbar,
 
 .menu-content {
   padding: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .setting-group {
@@ -522,7 +511,7 @@ body::-webkit-scrollbar,
 
 @media (max-width: 768px) {
   .content-wrapper {
-    padding: 3rem 1.5rem 1.5rem 1.5rem;
+    padding: 5rem 1.5rem 1.5rem 1.5rem; /* Adjusted for mobile header */
   }
   
   .timer-section {
@@ -556,14 +545,13 @@ body::-webkit-scrollbar,
   }
   
   .settings-menu {
-    width: 300px;
-    right: -300px;
+    padding-top: 5rem; /* Smaller padding for mobile */
   }
 }
 
 @media (max-width: 480px) {
   .content-wrapper {
-    padding: 2rem 1rem 1rem 1rem;
+    padding: 4.5rem 1rem 1rem 1rem; /* Adjusted for mobile header */
   }
   
   .timer-controls {
@@ -578,8 +566,7 @@ body::-webkit-scrollbar,
   }
   
   .settings-menu {
-    width: 280px;
-    right: -280px;
+    padding-top: 4.5rem; /* Smaller padding for small mobile */
   }
   
   .menu-content {

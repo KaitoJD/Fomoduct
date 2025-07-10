@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import './App.css'
-import { SettingsMenu, SessionNotification, NavigationBar } from './components'
+import { SettingsMenu, SessionNotification, Header, NavigationBar } from './components'
 
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
   const [isRunning, setIsRunning] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [currentSession, setCurrentSession] = useState(0) // Track completed work sessions
   const [isBreakTime, setIsBreakTime] = useState(false) // Track if currently in break
   
@@ -91,6 +92,10 @@ function App() {
     setIsMenuOpen(prev => !prev)
   }
 
+  const toggleSettings = () => {
+    setIsSettingsOpen(prev => !prev)
+  }
+
   const updateWorkDuration = useCallback((minutes: number) => {
     setWorkDuration(minutes)
     if (!isRunning && !isBreakTime) {
@@ -148,10 +153,21 @@ function App() {
   return (
     <div className="app">
       <div className="content-wrapper">
-        {/* Navigation Bar */}
-        <NavigationBar
+        {/* Header */}
+        <Header
           isMenuOpen={isMenuOpen}
           onToggleMenu={toggleMenu}
+          onToggleSettings={toggleSettings}
+          onTimerClick={() => {
+            // Focus on timer section or scroll to timer
+            console.log('Timer navigation clicked')
+          }}
+        />
+
+        {/* Desktop Navigation Bar - Right Side */}
+        <NavigationBar
+          isMenuOpen={isSettingsOpen}
+          onToggleMenu={toggleSettings}
           onTimerClick={() => {
             // Focus on timer section or scroll to timer
             console.log('Timer navigation clicked')
@@ -159,8 +175,8 @@ function App() {
         />
 
         <SettingsMenu
-          isOpen={isMenuOpen}
-          onClose={toggleMenu}
+          isOpen={isSettingsOpen}
+          onClose={toggleSettings}
           workDuration={workDuration}
           shortBreakDuration={shortBreakDuration}
           longBreakDuration={longBreakDuration}
