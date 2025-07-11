@@ -241,7 +241,7 @@ body::-webkit-scrollbar,
   -ms-overflow-style: none;
   padding-top: 6rem; /* Add padding to account for header */
   transform: translateX(100%); /* Initially hide the menu */
-  transition: transform 0.3s ease; /* Smooth transition */
+  /* Removed transition for instant open/close */
   visibility: hidden;
 }
 
