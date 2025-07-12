@@ -143,6 +143,12 @@ body::-webkit-scrollbar,
   justify-content: center; /* Center horizontally within its space */
 }
 
+.timer-display:focus-visible {
+  outline: 3px solid #4facfe;
+  outline-offset: 8px;
+  border-radius: 12px;
+}
+
 .timer-controls {
   display: flex;
   gap: 1.5rem;
