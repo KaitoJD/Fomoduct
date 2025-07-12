@@ -85,6 +85,8 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
             className={`hamburger ${isMenuOpen ? 'open' : ''}`}
             onClick={onToggleMenu}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-dropdown"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path 
@@ -102,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="mobile-dropdown">          <div className="dropdown-content">
+        <div className="mobile-dropdown" id="mobile-dropdown">          <div className="dropdown-content">
             <NavButton
               variant="timer"
               style="header-dropdown"
