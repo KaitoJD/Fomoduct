@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import '../styles/Header.css'
+import { NavButton } from './index'
 
 interface HeaderProps {
   isMenuOpen: boolean
@@ -66,26 +67,16 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
 
         {/* Navigation - Desktop */}
         <nav className="header-nav desktop-nav">
-          <button 
-            className="header-nav-item"
+          <NavButton
+            variant="timer"
+            style="header"
             onClick={onTimerClick}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-              <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Timer
-          </button>
-          <button 
-            className="header-nav-item"
+          />
+          <NavButton
+            variant="settings"
+            style="header"
             onClick={onToggleSettings}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M12 15l3-3H9l3 3z" fill="currentColor"/>
-              <path d="M12 9l3 3H9l3-3z" fill="currentColor"/>
-            </svg>
-            Settings
-          </button>
+          />
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -111,45 +102,23 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="mobile-dropdown">
-          <div className="dropdown-content">
-            <button 
-              className="header-dropdown-item"
+        <div className="mobile-dropdown">          <div className="dropdown-content">
+            <NavButton
+              variant="timer"
+              style="header-dropdown"
               onClick={() => {
                 onTimerClick()
                 onToggleMenu()
               }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
-                <path 
-                  d="M12 7v5l3 3" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-              </svg>
-              Timer
-            </button>
-            <button 
-              className="header-dropdown-item"
+            />
+            <NavButton
+              variant="settings"
+              style="header-dropdown"
               onClick={() => {
                 onToggleSettings()
                 onToggleMenu()
               }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
-                <path 
-                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" 
-                  stroke="currentColor" 
-                  strokeWidth="1.5"
-                />
-              </svg>
-              Settings
-            </button>
+            />
           </div>
         </div>
       )}
