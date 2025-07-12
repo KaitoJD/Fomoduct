@@ -20,7 +20,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
           <button
             type="button"
             className="nav-item timer-nav"
-            onClick={onTimerClick}
+            onClick={() => onTimerClick && onTimerClick()}
             aria-label="Focus on Pomodoro Timer"
             title="Timer"
           >
