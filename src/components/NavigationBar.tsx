@@ -19,7 +19,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
         <nav className="nav-items">
           <button
             type="button"
-            className="nav-item timer-nav"
+            className="nav-bar-item timer-nav"
             onClick={() => onTimerClick && onTimerClick()}
             aria-label="Focus on Pomodoro Timer"
             title="Timer"
@@ -40,7 +40,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
 
           <button
             type="button"
-            className={`nav-item settings-nav ${isMenuOpen ? 'active' : ''}`}
+            className={`nav-bar-item settings-nav ${isMenuOpen ? 'active' : ''}`}
             onClick={onToggleMenu}
             aria-label="Open Settings Panel"
             aria-expanded={isMenuOpen}
