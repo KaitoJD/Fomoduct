@@ -5,8 +5,7 @@
 :root {
   /* Navigation Bar Dimensions - Keep in sync with NavigationBar.css */
   --nav-bar-width: 80px;
-  --nav-bar-padding: 20px; /* Additional padding for content spacing */
-  --timer-section-padding-right: calc(var(--nav-bar-width) + var(--nav-bar-padding));
+  --timer-section-padding-right: calc(var(--nav-bar-width) + 20px);
 }
 
 /* Global scrollbar styling - Hidden but functional */
