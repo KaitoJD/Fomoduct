@@ -1,0 +1,101 @@
+/* Header Responsive Design Overrides */
+
+/* Tablet and Mobile (768px and below) */
+@media (max-width: 768px) {
+  .header-content {
+    padding: 1rem 1.5rem;
+  }
+  
+  .header-center {
+    gap: 1rem;
+    max-width: 250px;
+  }
+  
+  .time-display {
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .current-time {
+    font-size: 1rem;
+  }
+  
+  .current-date {
+    font-size: 0.7rem;
+  }
+  
+  .productivity-indicator {
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .productivity-indicator span {
+    font-size: 0.8rem;
+  }
+  
+  .brand-name {
+    font-size: 1.5rem;
+  }
+  
+  .desktop-nav {
+    display: none; /* Keep hidden on mobile */
+  }
+  
+  .mobile-menu-toggle {
+    display: block; /* Show on mobile */
+  }
+}
+
+/* Small Mobile (640px and below) */
+@media (max-width: 640px) {
+  .header-content {
+    padding: 1rem;
+  }
+  
+  .header-center {
+    gap: 0.75rem;
+    max-width: 200px;
+  }
+  
+  .separator {
+    display: none;
+  }
+  
+  .productivity-indicator {
+    display: none;
+  }
+  
+  .brand-name {
+    font-size: 1.25rem;
+  }
+  
+  .time-display {
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .current-time {
+    font-size: 0.9rem;
+  }
+  
+  .current-date {
+    font-size: 0.65rem;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .header-brand {
+    gap: 0.5rem;
+  }
+  
+  .logo {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .brand-name {
+    font-size: 1.1rem;
+  }
+  
+  .header-center {
+    max-width: 150px;
+  }
+}
