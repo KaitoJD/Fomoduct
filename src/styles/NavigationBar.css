@@ -82,10 +82,7 @@
 }
 
 /* Specific navigation item styles */
-.nav-bar-item.timer-nav:hover {
-  border-color: rgba(79, 172, 254, 0.4);
-}
-
+.nav-bar-item.timer-nav:hover,
 .nav-bar-item.settings-nav:hover {
   border-color: rgba(79, 172, 254, 0.4);
 }
