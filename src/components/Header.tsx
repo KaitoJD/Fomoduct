@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
         {/* Navigation - Desktop */}
         <nav className="header-nav desktop-nav">
           <button 
-            className="nav-item"
+            className="header-nav-item"
             onClick={onTimerClick}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
             Timer
           </button>
           <button 
-            className="nav-item"
+            className="header-nav-item"
             onClick={onToggleSettings}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +114,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
         <div className="mobile-dropdown">
           <div className="dropdown-content">
             <button 
-              className="dropdown-item"
+              className="header-dropdown-item"
               onClick={() => {
                 onTimerClick()
                 onToggleMenu()
@@ -134,7 +134,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
               Timer
             </button>
             <button 
-              className="dropdown-item"
+              className="header-dropdown-item"
               onClick={() => {
                 onToggleSettings()
                 onToggleMenu()
