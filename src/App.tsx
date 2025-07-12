@@ -191,7 +191,7 @@ function App() {
           <div className="panels-container">
             {/* Timer Panel */}
             <div className="timer-panel">
-              <div className="timer-card">
+              <div className="card timer-card">
                 <div className="session-info">
                   <div className="current-phase">{getCurrentPhase()}</div>
                   <div className="session-counter">
@@ -222,7 +222,7 @@ function App() {
 
             {/* Task Tracker Panel */}
             <div className="task-panel">
-              <div className="task-card">
+              <div className="card task-card">
                 <div className="task-header">
                   <h3>Task Tracker</h3>
                 </div>

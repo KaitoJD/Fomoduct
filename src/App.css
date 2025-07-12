@@ -105,7 +105,8 @@ body::-webkit-scrollbar,
   flex-direction: column;
 }
 
-.timer-card {
+/* Base card class with shared styles */
+.card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 32px;
@@ -120,27 +121,17 @@ body::-webkit-scrollbar,
   min-width: 320px;
   display: flex;
   flex-direction: column;
+}
+
+.timer-card {
   justify-content: space-between; /* Distribute space evenly */
   align-items: center; /* Center content horizontally */
   min-height: 400px; /* Ensure minimum height for better proportions */
 }
 
 .task-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 32px;
-  padding: 3rem 2.5rem;
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.15),
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  flex: 1;
-  text-align: center;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-  /* No justify-content so content can grow naturally */
+  /* Task-specific styles - content grows naturally without justify-content */
+  justify-content: flex-start;
 }
 
 .session-info {
@@ -483,8 +474,7 @@ body::-webkit-scrollbar,
     flex: none; /* Don't use flex on mobile */
   }
   
-  .timer-card,
-  .task-card {
+  .card {
     padding: 2rem 1.5rem;
     min-height: auto; /* Allow natural height */
   }
@@ -569,8 +559,7 @@ body::-webkit-scrollbar,
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-  .timer-card,
-  .task-card {
+  .card {
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
