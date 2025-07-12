@@ -232,10 +232,10 @@ function App() {
             </div>
 
             {/* Task Tracker Panel */}
-            <div className="task-panel">
+            <div className="task-panel" role="region" aria-labelledby="task-tracker-heading">
               <div className="app-card task-card">
                 <div className="task-header">
-                  <h3>Task Tracker</h3>
+                  <h3 id="task-tracker-heading">Task Tracker</h3>
                 </div>
                 <div className="task-content">
                   <div className="task-list">
