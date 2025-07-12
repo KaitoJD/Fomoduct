@@ -91,13 +91,6 @@ body::-webkit-scrollbar,
   padding-right: 120px; /* Add padding to account for right navigation bar */
 }
 
-/* Remove right padding on mobile */
-@media (max-width: 768px) {
-  .timer-section {
-    padding-right: 0;
-  }
-}
-
 .panels-container {
   display: flex;
   gap: 2rem;
@@ -474,6 +467,12 @@ body::-webkit-scrollbar,
 
 /* Responsive Design for Panels */
 @media (max-width: 768px) {
+  /* Remove right padding on mobile */
+  .timer-section {
+    padding-right: 0;
+    margin-bottom: 1.5rem;
+  }
+  
   .panels-container {
     flex-direction: column;
     gap: 1.5rem;
@@ -507,15 +506,9 @@ body::-webkit-scrollbar,
     flex-direction: column;
     gap: 0.75rem;
   }
-}
-
-@media (max-width: 768px) {
+  
   .content-wrapper {
     padding: 5rem 1.5rem 1.5rem 1.5rem; /* Adjusted for mobile header */
-  }
-  
-  .timer-section {
-    margin-bottom: 1.5rem;
   }
   
   .duration-input {
