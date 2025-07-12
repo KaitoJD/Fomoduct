@@ -187,7 +187,7 @@ function App() {
           onSessionsChange={setSessionsBeforeLongBreak}
         />
 
-        <main className={`timer-section ${isMenuOpen ? 'menu-open' : ''}`}>
+        <main className={`timer-section ${isSettingsOpen ? 'menu-open' : ''}`}>
           <div className="panels-container">
             {/* Timer Panel */}
             <div className="timer-panel">
