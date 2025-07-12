@@ -76,6 +76,8 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
             variant="settings"
             style="header"
             onClick={onToggleSettings}
+            ariaExpanded={isMenuOpen}
+            ariaControls="settings-menu"
           />
         </nav>
 
