@@ -29,6 +29,10 @@ function App() {
   const shortBreakDurationRef = useRef(shortBreakDuration)
   const longBreakDurationRef = useRef(longBreakDuration)
   const sessionsBeforeLongBreakRef = useRef(sessionsBeforeLongBreak)
+  
+  // Refs for DOM elements
+  const timerSectionRef = useRef<HTMLElement>(null)
+  const timerDisplayRef = useRef<HTMLDivElement>(null)
 
   // Update refs when state changes
   timeRef.current = time
@@ -153,13 +157,11 @@ function App() {
   // Navigation handler for timer focus
   const handleTimerNavigation = useCallback(() => {
     // Focus on the timer section for accessibility
-    const timerSection = document.querySelector('.timer-section')
-    if (timerSection) {
-      timerSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (timerSectionRef.current) {
+      timerSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
       // Focus on the timer display for screen readers
-      const timerDisplay = document.querySelector('.timer-display')
-      if (timerDisplay instanceof HTMLElement) {
-        timerDisplay.focus()
+      if (timerDisplayRef.current) {
+        timerDisplayRef.current.focus()
       }
     }
   }, [])
@@ -196,7 +198,7 @@ function App() {
           onSessionsChange={setSessionsBeforeLongBreak}
         />
 
-        <main className={`timer-section ${isSettingsOpen ? 'menu-open' : ''}`}>
+        <main ref={timerSectionRef} className={`timer-section ${isSettingsOpen ? 'menu-open' : ''}`}>
           <div className="panels-container">
             {/* Timer Panel */}
             <div className="timer-panel">
@@ -207,7 +209,7 @@ function App() {
                     Session {currentSession + (isBreakTime ? 0 : 1)} • Completed: {currentSession}
                   </div>
                 </div>
-                <div className="timer-display" tabIndex={-1} aria-label={`Timer: ${formatTime(time)}`} aria-live="polite">
+                <div ref={timerDisplayRef} className="timer-display" tabIndex={-1} aria-label={`Timer: ${formatTime(time)}`} aria-live="polite">
                   {formatTime(time)}
                 </div>
                 <div className="timer-controls">
