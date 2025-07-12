@@ -14,7 +14,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   onTimerClick
 }) => {
   return (
-    <div className={`navigation-bar ${isMenuOpen ? 'menu-open' : ''}`}>
+    <aside className={`navigation-bar ${isMenuOpen ? 'menu-open' : ''}`} role="navigation" aria-label="Sidebar navigation">
       <div className="nav-content">
         {/* Navigation Items */}
         <nav className="nav-items" aria-label="Main navigation">
@@ -34,6 +34,6 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
           />
         </nav>
       </div>
-    </div>
+    </aside>
   )
 }
