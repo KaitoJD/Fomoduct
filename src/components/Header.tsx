@@ -4,12 +4,13 @@ import { NavButton } from './index'
 
 interface HeaderProps {
   isMenuOpen: boolean
+  isSettingsOpen: boolean
   onToggleMenu: () => void
   onToggleSettings: () => void
   onTimerClick: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSettings, onTimerClick }) => {
+const Header: React.FC<HeaderProps> = ({ isMenuOpen, isSettingsOpen, onToggleMenu, onToggleSettings, onTimerClick }) => {
   const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, onToggleMenu, onToggleSetti
             variant="settings"
             style="header"
             onClick={onToggleSettings}
-            ariaExpanded={isMenuOpen}
+            ariaExpanded={isSettingsOpen}
             ariaControls="settings-menu"
           />
         </nav>
