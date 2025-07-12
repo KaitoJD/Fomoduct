@@ -17,7 +17,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     <div className={`navigation-bar ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="nav-content">
         {/* Navigation Items */}
-        <nav className="nav-items">
+        <nav className="nav-items" aria-label="Main navigation">
           <NavButton
             variant="timer"
             style="nav-bar"
