@@ -5,7 +5,7 @@
   right: 0;
   bottom: 0;
   z-index: 999;
-  width: 80px;
+  width: var(--nav-bar-width, 80px); /* Use CSS variable with fallback */
   background: rgba(255, 255, 255, 1);
   backdrop-filter: blur(20px);
   border-left: 1px solid rgba(0, 0, 0, 0.1);

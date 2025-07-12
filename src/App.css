@@ -1,6 +1,14 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+/* CSS Custom Properties */
+:root {
+  /* Navigation Bar Dimensions - Keep in sync with NavigationBar.css */
+  --nav-bar-width: 80px;
+  --nav-bar-padding: 20px; /* Additional padding for content spacing */
+  --timer-section-padding-right: calc(var(--nav-bar-width) + var(--nav-bar-padding));
+}
+
 /* Global scrollbar styling - Hidden but functional */
 html, body, * {
   scrollbar-width: none; /* Firefox */
@@ -88,7 +96,7 @@ body::-webkit-scrollbar,
   width: 100%;
   max-width: 1200px;
   margin: 0 auto 2rem auto;
-  padding-right: 120px; /* Add padding to account for right navigation bar */
+  padding-right: var(--timer-section-padding-right); /* Dynamic padding based on nav bar width */
 }
 
 .panels-container {
