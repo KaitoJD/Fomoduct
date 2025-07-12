@@ -140,6 +140,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
   // Add conditional props
   if (ariaExpanded !== undefined) {
     buttonProps['aria-expanded'] = ariaExpanded
+    buttonProps['aria-haspopup'] = true
   }
   if (ariaControls) {
     buttonProps['aria-controls'] = ariaControls
