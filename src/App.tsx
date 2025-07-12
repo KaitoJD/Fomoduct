@@ -207,7 +207,7 @@ function App() {
                     Session {currentSession + (isBreakTime ? 0 : 1)} • Completed: {currentSession}
                   </div>
                 </div>
-                <div className="timer-display" tabIndex={-1} aria-label={`Timer: ${formatTime(time)}`}>
+                <div className="timer-display" tabIndex={-1} aria-label={`Timer: ${formatTime(time)}`} aria-live="polite">
                   {formatTime(time)}
                 </div>
                 <div className="timer-controls">
