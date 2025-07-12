@@ -156,6 +156,7 @@ function App() {
         {/* Header */}
         <Header
           isMenuOpen={isMenuOpen}
+          isSettingsOpen={isSettingsOpen}
           onToggleMenu={toggleMenu}
           onToggleSettings={toggleSettings}
           onTimerClick={() => {
