@@ -107,7 +107,8 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, isSettingsOpen, onToggleMen
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="mobile-dropdown" id="mobile-dropdown">          <div className="dropdown-content">
+        <div className="mobile-dropdown" id="mobile-dropdown">          
+          <div className="dropdown-content">
             <NavButton
               variant="timer"
               style="header-dropdown"
