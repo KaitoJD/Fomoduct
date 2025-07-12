@@ -81,7 +81,7 @@ body::-webkit-scrollbar,
 }
 
 /* Base card class with shared styles */
-.card {
+.app-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 32px;
@@ -449,7 +449,7 @@ body::-webkit-scrollbar,
     flex: none; /* Don't use flex on mobile */
   }
   
-  .card {
+  .app-card {
     padding: 2rem 1.5rem;
     min-height: auto; /* Allow natural height */
   }
@@ -534,7 +534,7 @@ body::-webkit-scrollbar,
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-  .card {
+  .app-card {
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
