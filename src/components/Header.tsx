@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, isSettingsOpen, onToggleMen
         </div>
 
         {/* Navigation - Desktop */}
-        <nav className="header-nav desktop-nav">
+        <nav className="header-nav desktop-nav" aria-label="Header navigation">
           <NavButton
             variant="timer"
             style="header"
