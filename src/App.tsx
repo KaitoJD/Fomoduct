@@ -150,6 +150,20 @@ function App() {
     }
   }, [isRunning, resetNotificationState])
 
+  // Navigation handler for timer focus
+  const handleTimerNavigation = useCallback(() => {
+    // Focus on the timer section for accessibility
+    const timerSection = document.querySelector('.timer-section')
+    if (timerSection) {
+      timerSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      // Focus on the timer display for screen readers
+      const timerDisplay = document.querySelector('.timer-display')
+      if (timerDisplay instanceof HTMLElement) {
+        timerDisplay.focus()
+      }
+    }
+  }, [])
+
   return (
     <div className="app">
       <div className="content-wrapper">
@@ -159,20 +173,14 @@ function App() {
           isSettingsOpen={isSettingsOpen}
           onToggleMenu={toggleMenu}
           onToggleSettings={toggleSettings}
-          onTimerClick={() => {
-            // Focus on timer section or scroll to timer
-            console.log('Timer navigation clicked')
-          }}
+          onTimerClick={handleTimerNavigation}
         />
 
         {/* Desktop Navigation Bar - Right Side */}
         <NavigationBar
           isMenuOpen={isSettingsOpen}
           onToggleMenu={toggleSettings}
-          onTimerClick={() => {
-            // Focus on timer section or scroll to timer
-            console.log('Timer navigation clicked')
-          }}
+          onTimerClick={handleTimerNavigation}
         />
 
         <SettingsMenu
@@ -199,7 +207,7 @@ function App() {
                     Session {currentSession + (isBreakTime ? 0 : 1)} • Completed: {currentSession}
                   </div>
                 </div>
-                <div className="timer-display">
+                <div className="timer-display" tabIndex={-1} aria-label={`Timer: ${formatTime(time)}`}>
                   {formatTime(time)}
                 </div>
                 <div className="timer-controls">
