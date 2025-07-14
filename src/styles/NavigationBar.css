@@ -6,9 +6,9 @@
   bottom: 0;
   z-index: 999;
   width: var(--nav-bar-width, 80px); /* Use CSS variable with fallback */
-  background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.95); /* Match header color */
   backdrop-filter: blur(20px);
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.1); /* Match header border */
   box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
