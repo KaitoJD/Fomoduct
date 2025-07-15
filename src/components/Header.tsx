@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../styles/Header.css'
 import { NavButton } from './index'
+import { ToggleThemeButton } from './ToggleThemeButton'
 
 interface HeaderProps {
   isMenuOpen: boolean
@@ -82,26 +83,29 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, isSettingsOpen, onToggleMen
           />
         </nav>
 
-        {/* Mobile Menu Toggle */}
-        <div className="mobile-menu-toggle">
-          <button 
-            className={`hamburger ${isMenuOpen ? 'open' : ''}`}
-            onClick={onToggleMenu}
-            aria-label="Toggle menu"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-dropdown"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path 
-                d="M3 6h18M3 12h18M3 18h18" 
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                className="hamburger-lines"
-              />
-            </svg>
-          </button>
+        {/* Mobile Menu Toggle & Theme Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <ToggleThemeButton />
+          <div className="mobile-menu-toggle">
+            <button 
+              className={`hamburger ${isMenuOpen ? 'open' : ''}`}
+              onClick={onToggleMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-dropdown"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path 
+                  d="M3 6h18M3 12h18M3 18h18" 
+                  stroke="currentColor" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  className="hamburger-lines"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
