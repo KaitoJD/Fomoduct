@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import './App.css'
-import { SettingsMenu, SessionNotification, Header } from './components'
-import { Dock } from './components/Dock.tsx'
+import { SettingsMenu, SessionNotification, Header, Dock } from './components'
 
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
