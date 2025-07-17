@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import './App.css'
-import { SettingsMenu, SessionNotification, Header, NavigationBar } from './components'
+import { SettingsMenu, SessionNotification, Header } from './components'
+import { Dock } from './components/Dock.tsx'
 
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
@@ -178,8 +179,8 @@ function App() {
           onTimerClick={handleTimerNavigation}
         />
 
-        {/* Desktop Navigation Bar - Right Side */}
-        <NavigationBar
+        {/* Bottom Dock Navigation */}
+        <Dock
           isMenuOpen={isSettingsOpen}
           onToggleMenu={toggleSettings}
           onTimerClick={handleTimerNavigation}
