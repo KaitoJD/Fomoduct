@@ -21,7 +21,6 @@ export const Dock: React.FC<DockProps> = ({ isMenuOpen, onToggleMenu, onTimerCli
           variant="settings"
           style="nav-bar"
           onClick={onToggleMenu}
-          isActive={isMenuOpen}
           ariaExpanded={isMenuOpen}
           ariaControls="settings-menu"
         />
