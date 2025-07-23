@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import '../styles/Dock.css';
 import { NavButton } from './index';
 
@@ -9,6 +9,14 @@ interface DockProps {
 }
 
 export const Dock: React.FC<DockProps> = ({ isMenuOpen, onToggleMenu, onTimerClick }) => {
+  const settingsButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isMenuOpen && settingsButtonRef.current) {
+      settingsButtonRef.current.blur();
+    }
+  }, [isMenuOpen]);
+
   return (
     <nav className="dock-nav" role="navigation" aria-label="Bottom dock navigation">
       <div className="dock-content">
@@ -23,6 +31,7 @@ export const Dock: React.FC<DockProps> = ({ isMenuOpen, onToggleMenu, onTimerCli
           onClick={onToggleMenu}
           ariaExpanded={isMenuOpen}
           ariaControls="settings-menu"
+          ref={settingsButtonRef}
         />
       </div>
     </nav>
