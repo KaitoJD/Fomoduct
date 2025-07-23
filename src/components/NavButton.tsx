@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 export type NavButtonVariant = 'timer' | 'settings'
 export type NavButtonStyle = 'nav-bar' | 'header' | 'header-dropdown'
@@ -60,106 +60,108 @@ const SettingsIcon: React.FC<{ style: NavButtonStyle }> = ({ style }) => (
   </svg>
 )
 
-export const NavButton: React.FC<NavButtonProps> = ({
-  variant,
-  style,
-  onClick,
-  className = '',
-  isActive = false,
-  ariaExpanded,
-  ariaControls,
-  ariaLabel,
-  title
-}) => {
-  // Generate default className based on style
-  const getBaseClassName = () => {
-    switch (style) {
-      case 'nav-bar':
-        return 'nav-bar-item'
-      case 'header':
-        return 'header-nav-item'
-      case 'header-dropdown':
-        return 'header-dropdown-item'
-      default:
-        return ''
-    }
-  }
-
-  // Generate default aria-label if not provided
-  const getDefaultAriaLabel = () => {
-    if (ariaLabel) return ariaLabel
-    
-    switch (variant) {
-      case 'timer':
-        return 'Focus on Pomodoro Timer'
-      case 'settings':
-        return style === 'nav-bar' ? 'Open Settings Panel' : 'Settings'
-      default:
-        return undefined
-    }
-  }
-
-  // Generate default title if not provided
-  const getDefaultTitle = () => {
-    if (title !== undefined) return title
-    
-    switch (variant) {
-      case 'timer':
-        return 'Timer'
-      case 'settings':
-        return 'Settings'
-      default:
-        return undefined
-    }
-  }
-
-  // Get button text
-  const getButtonText = () => {
-    switch (variant) {
-      case 'timer':
-        return 'Timer'
-      case 'settings':
-        return 'Settings'
-      default:
-        return ''
-    }
-  }
-
-  // Get additional variant-specific className
-  const getVariantClassName = () => {
-    if (style !== 'nav-bar') return ''
-    
-    const variantClass = variant === 'timer' ? 'timer-nav' : 'settings-nav'
-    return isActive ? `${variantClass} active` : variantClass
-  }
-
-  const fullClassName = [
-    getBaseClassName(),
-    getVariantClassName(),
-    className
-  ].filter(Boolean).join(' ')
-
-  const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
-    type: 'button',
-    className: fullClassName,
+export const NavButton = forwardRef<HTMLButtonElement, NavButtonProps>(
+  ({
+    variant,
+    style,
     onClick,
-    'aria-label': getDefaultAriaLabel(),
-    title: getDefaultTitle()
-  }
+    className = '',
+    isActive = false,
+    ariaExpanded,
+    ariaControls,
+    ariaLabel,
+    title
+  }, ref) => {
+    // Generate default className based on style
+    const getBaseClassName = () => {
+      switch (style) {
+        case 'nav-bar':
+          return 'nav-bar-item'
+        case 'header':
+          return 'header-nav-item'
+        case 'header-dropdown':
+          return 'header-dropdown-item'
+        default:
+          return ''
+      }
+    }
 
-  // Add conditional props
-  if (ariaExpanded !== undefined) {
-    buttonProps['aria-expanded'] = ariaExpanded
-    buttonProps['aria-haspopup'] = true
-  }
-  if (ariaControls) {
-    buttonProps['aria-controls'] = ariaControls
-  }
+    // Generate default aria-label if not provided
+    const getDefaultAriaLabel = () => {
+      if (ariaLabel) return ariaLabel
 
-  return (
-    <button {...buttonProps}>
-      {variant === 'timer' ? <TimerIcon style={style} /> : <SettingsIcon style={style} />}
-      <span>{getButtonText()}</span>
-    </button>
-  )
-}
+      switch (variant) {
+        case 'timer':
+          return 'Focus on Pomodoro Timer'
+        case 'settings':
+          return style === 'nav-bar' ? 'Open Settings Panel' : 'Settings'
+        default:
+          return undefined
+      }
+    }
+
+    // Generate default title if not provided
+    const getDefaultTitle = () => {
+      if (title !== undefined) return title
+
+      switch (variant) {
+        case 'timer':
+          return 'Timer'
+        case 'settings':
+          return 'Settings'
+        default:
+          return undefined
+      }
+    }
+
+    // Get button text
+    const getButtonText = () => {
+      switch (variant) {
+        case 'timer':
+          return 'Timer'
+        case 'settings':
+          return 'Settings'
+        default:
+          return ''
+      }
+    }
+
+    // Get additional variant-specific className
+    const getVariantClassName = () => {
+      if (style !== 'nav-bar') return ''
+
+      const variantClass = variant === 'timer' ? 'timer-nav' : 'settings-nav'
+      return isActive ? `${variantClass} active` : variantClass
+    }
+
+    const fullClassName = [
+      getBaseClassName(),
+      getVariantClassName(),
+      className
+    ].filter(Boolean).join(' ')
+
+    const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
+      type: 'button',
+      className: fullClassName,
+      onClick,
+      'aria-label': getDefaultAriaLabel(),
+      title: getDefaultTitle()
+    }
+
+    // Add conditional props
+    if (ariaExpanded !== undefined) {
+      buttonProps['aria-expanded'] = ariaExpanded
+      buttonProps['aria-haspopup'] = true
+    }
+    if (ariaControls) {
+      buttonProps['aria-controls'] = ariaControls
+    }
+
+    return (
+      <button {...buttonProps} ref={ref}>
+        {variant === 'timer' ? <TimerIcon style={style} /> : <SettingsIcon style={style} />}
+        <span>{getButtonText()}</span>
+      </button>
+    )
+  }
+)
