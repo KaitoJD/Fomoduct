@@ -61,10 +61,6 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, isSettingsOpen, onToggleMen
             <div className="current-date">{formatDate(currentTime)}</div>
           </div>
           <div className="separator"></div>
-          <div className="productivity-indicator">
-            <div className="indicator-dot"></div>
-            <span>Focus Mode</span>
-          </div>
         </div>
 
         {/* Navigation - Desktop */}
