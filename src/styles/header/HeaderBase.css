@@ -12,22 +12,26 @@
 }
 
 .header-content {
-  max-width: 1200px;
+  max-width: 1400px; /* Increased for wider title bar */
   margin: 0 auto;
-  padding: 0.5rem 1rem; /* Slightly reduced for desktop */
+  padding: 0.5rem 1.5rem; /* More horizontal padding for better spacing */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
-  gap: 0.75rem;
+  height: 72px; /* Slightly taller for better time display */
+  gap: 1rem; /* More gap for better separation */
   box-sizing: border-box;
   overflow: hidden; /* Prevent children from overflowing header bar */
 }
 
+.header-content > * {
+  min-width: 0; /* Prevent flex children from overflowing */
+}
+
 @media (max-width: 1024px) {
   .header-content {
-    padding: 0.5rem 0.5rem;
-    height: 56px;
+    padding: 0.5rem 0.75rem;
+    height: 60px;
     gap: 0.5rem;
   }
 }
@@ -35,7 +39,7 @@
 @media (max-width: 768px) {
   .header-content {
     padding: 0.5rem 0.25rem;
-    height: 48px;
+    height: 52px;
     gap: 0.25rem;
   }
 }
@@ -43,7 +47,7 @@
 @media (max-width: 480px) {
   .header-content {
     padding: 0.25rem 0.15rem;
-    height: 40px;
+    height: 44px;
     gap: 0.15rem;
   }
 }
