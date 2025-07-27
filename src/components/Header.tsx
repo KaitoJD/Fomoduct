@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../styles/Header.css'
 import { NavButton } from './index'
 import { ToggleThemeButton } from './ToggleThemeButton'
@@ -61,10 +61,6 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, isSettingsOpen, onToggleMen
             <div className="current-date">{formatDate(currentTime)}</div>
           </div>
           <div className="separator"></div>
-          <div className="productivity-indicator">
-            <div className="indicator-dot"></div>
-            <span>Focus Mode</span>
-          </div>
         </div>
 
         {/* Navigation - Desktop */}

@@ -23,14 +23,6 @@
     font-size: 0.7rem;
   }
   
-  .productivity-indicator {
-    padding: 0.4rem 0.8rem;
-  }
-  
-  .productivity-indicator span {
-    font-size: 0.8rem;
-  }
-  
   .brand-name {
     font-size: 1.5rem;
   }
@@ -58,11 +50,7 @@
   .separator {
     display: none;
   }
-  
-  .productivity-indicator {
-    display: none;
-  }
-  
+
   .brand-name {
     font-size: 1.25rem;
   }
