@@ -13,6 +13,13 @@
   backdrop-filter: blur(4px);
 }
 
+/* Dark mode dock */
+[data-theme="dark"] .dock-nav {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.3);
+}
+
 .dock-content {
   display: flex;
   gap: 2rem;
@@ -31,9 +38,22 @@
   position: relative;
 }
 
+/* Dark mode dock items */
+[data-theme="dark"] .nav-bar-item {
+  color: #ffffff;
+}
+
 .nav-bar-item:hover, .nav-bar-item:focus {
   background: rgba(76,172,254,0.12);
   box-shadow: 0 2px 12px rgba(76,172,254,0.18);
   transform: translateY(-4px) scale(1.08);
   color: #1976d2;
+}
+
+/* Dark mode dock item hover */
+[data-theme="dark"] .nav-bar-item:hover,
+[data-theme="dark"] .nav-bar-item:focus {
+  background: rgba(76,172,254,0.2);
+  box-shadow: 0 2px 12px rgba(76,172,254,0.3);
+  color: #4facfe;
 }

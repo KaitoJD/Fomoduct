@@ -121,3 +121,36 @@
   height: 30px;
   background: rgba(0, 0, 0, 0.1);
 }
+
+/* Dark mode header */
+[data-theme="dark"] .header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode header text */
+[data-theme="dark"] .brand-name {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .current-time {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .current-date {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .time-display {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .separator {
+  background: rgba(255, 255, 255, 0.2);
+}
