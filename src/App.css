@@ -26,11 +26,111 @@ body::-webkit-scrollbar,
   min-height: 100vh;
   position: relative;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  /* Background image styling */
+  /* Default light theme background image */
   background-image: url('./assets/light-theme.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+/* Dark theme background image */
+[data-theme="dark"] .app {
+  background-image: url('./assets/dark-theme.jpg');
+}
+
+/* Dark mode card styles - transparent with blur effect */
+[data-theme="dark"] .app-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Dark mode text colors */
+[data-theme="dark"] .current-phase,
+[data-theme="dark"] .timer-display,
+[data-theme="dark"] .task-header h3,
+[data-theme="dark"] .task-text,
+[data-theme="dark"] .stat-value {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .session-counter,
+[data-theme="dark"] .stat-label {
+  color: #e0e0e0;
+}
+
+/* Dark mode task item styling */
+[data-theme="dark"] .task-item {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .task-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] .stat-item {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Dark mode controls styling */
+[data-theme="dark"] .duration-controls {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .duration-input {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .duration-input:focus {
+  border-color: #4facfe;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .duration-input:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Dark mode checkbox styling */
+[data-theme="dark"] .task-checkbox {
+  border: 2px solid #e0e0e0;
+}
+
+[data-theme="dark"] .task-checkbox:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode settings menu */
+[data-theme="dark"] .settings-menu {
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(20px);
+}
+
+[data-theme="dark"] .menu-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .menu-header h3,
+[data-theme="dark"] .setting-group label {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .close-btn {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 .content-wrapper {
@@ -58,10 +158,9 @@ body::-webkit-scrollbar,
 .timer-section {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 2rem auto; /* Combined margin properties */
   padding-right: var(--timer-section-padding-right); /* Dynamic padding based on nav bar width */
 }
 
@@ -160,14 +259,13 @@ body::-webkit-scrollbar,
 
 .control-btn {
   padding: 1rem 2.5rem;
-  border: none;
+  border: 2px solid transparent; /* Single border declaration instead of conflicting ones */
   border-radius: 16px; /* Increased border radius for modern look */
   font-size: 1.1rem;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   min-width: 140px;
-  border: 2px solid transparent;
   transition: all 0.2s ease; /* Smooth hover effect */
 }
 
@@ -333,8 +431,7 @@ body::-webkit-scrollbar,
 }
 
 .duration-input[type=number] {
-  -moz-appearance: textfield;
-  appearance: textfield;
+  appearance: textfield; /* Standard appearance property - removed deprecated -moz-appearance */
 }
 
 /* Task Tracker Styles */
