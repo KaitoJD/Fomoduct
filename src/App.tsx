@@ -2,6 +2,14 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import './App.css'
 import { SettingsMenu, SessionNotification, Header, Dock } from './components'
 
+// Task interface
+interface Task {
+  id: string
+  text: string
+  completed: boolean
+  createdAt: Date
+}
+
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
   const [isRunning, setIsRunning] = useState(false)
@@ -20,6 +28,12 @@ function App() {
   const [shortBreakDuration, setShortBreakDuration] = useState(5)
   const [longBreakDuration, setLongBreakDuration] = useState(15)
   const [sessionsBeforeLongBreak, setSessionsBeforeLongBreak] = useState(4)
+
+  // Task tracker state
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [newTaskText, setNewTaskText] = useState('')
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null)
+  const [editingTaskText, setEditingTaskText] = useState('')
 
   // Use refs to access latest state values in the interval callback
   const timeRef = useRef(time)
@@ -166,6 +180,50 @@ function App() {
     }
   }, [])
 
+  // Task management functions
+  const handleAddTask = () => {
+    if (!newTaskText.trim()) return
+
+    const newTask: Task = {
+      id: crypto.randomUUID(),
+      text: newTaskText.trim(),
+      completed: false,
+      createdAt: new Date(),
+    }
+
+    setTasks(prev => [...prev, newTask])
+    setNewTaskText('')
+  }
+
+  const handleEditTask = (task: Task) => {
+    setEditingTaskId(task.id)
+    setEditingTaskText(task.text)
+  }
+
+  const handleUpdateTask = () => {
+    if (!editingTaskText.trim() || !editingTaskId) return
+
+    setTasks(prev =>
+      prev.map(task =>
+        task.id === editingTaskId ? { ...task, text: editingTaskText.trim() } : task
+      )
+    )
+    setEditingTaskId(null)
+    setEditingTaskText('')
+  }
+
+  const handleDeleteTask = (taskId: string) => {
+    setTasks(prev => prev.filter(task => task.id !== taskId))
+  }
+
+  const handleToggleTaskCompletion = (taskId: string) => {
+    setTasks(prev =>
+      prev.map(task =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      )
+    )
+  }
+
   return (
     <div className="app">
       <div className="content-wrapper">
@@ -239,20 +297,91 @@ function App() {
                 </div>
                 <div className="task-content">
                   <div className="task-list">
-                    {/* Task list will be implemented here */}
-                    <div className="task-item placeholder">
-                      <div className="task-checkbox"></div>
-                      <div className="task-text">Add your first task...</div>
-                    </div>
+                    {tasks.length === 0 ? (
+                      <div className="task-item placeholder">
+                        <div className="task-checkbox"></div>
+                        <div className="task-text">Add your first task...</div>
+                      </div>
+                    ) : (
+                      tasks.map(task => (
+                        <div key={task.id} className="task-item">
+                          <div className="task-checkbox">
+                            <input
+                              type="checkbox"
+                              checked={task.completed}
+                              onChange={() => handleToggleTaskCompletion(task.id)}
+                              aria-label={`Mark task ${task.text} as ${task.completed ? 'incomplete' : 'complete'}`}
+                            />
+                          </div>
+                          <div className="task-text" style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+                            {task.text}
+                          </div>
+                          <div className="task-actions">
+                            <button
+                              type="button"
+                              className="edit-btn"
+                              onClick={() => handleEditTask(task)}
+                              aria-label={`Edit task ${task.text}`}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              className="delete-btn"
+                              onClick={() => handleDeleteTask(task.id)}
+                              aria-label={`Delete task ${task.text}`}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))
+                    )}
                   </div>
+                  <div className="task-input">
+                    <input
+                      type="text"
+                      value={newTaskText}
+                      onChange={e => setNewTaskText(e.target.value)}
+                      placeholder="What do you need to do?"
+                      aria-label="New task input"
+                    />
+                    <button
+                      type="button"
+                      className="add-task-btn"
+                      onClick={handleAddTask}
+                      aria-label="Add new task"
+                    >
+                      Add Task
+                    </button>
+                  </div>
+                  {editingTaskId && (
+                    <div className="task-edit">
+                      <input
+                        type="text"
+                        value={editingTaskText}
+                        onChange={e => setEditingTaskText(e.target.value)}
+                        placeholder="Edit your task"
+                        aria-label="Edit task input"
+                      />
+                      <button
+                        type="button"
+                        className="update-task-btn"
+                        onClick={handleUpdateTask}
+                        aria-label="Update task"
+                      >
+                        Update Task
+                      </button>
+                    </div>
+                  )}
                   <div className="task-stats">
                     <div className="stat-item">
                       <span className="stat-label">Today's Tasks</span>
-                      <span className="stat-value">0</span>
+                      <span className="stat-value">{tasks.length}</span>
                     </div>
                     <div className="stat-item">
                       <span className="stat-label">Completed</span>
-                      <span className="stat-value">0</span>
+                      <span className="stat-value">{tasks.filter(task => task.completed).length}</span>
                     </div>
                   </div>
                 </div>
