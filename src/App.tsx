@@ -13,7 +13,6 @@ interface Task {
 function App() {
   const [time, setTime] = useState(25 * 60) // 25 minutes
   const [isRunning, setIsRunning] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [currentSession, setCurrentSession] = useState(0) // Track completed work sessions
   const [isBreakTime, setIsBreakTime] = useState(false) // Track if currently in break
@@ -104,10 +103,6 @@ function App() {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
-  }
-
-  const toggleMenu = () => {
-    setIsMenuOpen(prev => !prev)
   }
 
   const toggleSettings = () => {
