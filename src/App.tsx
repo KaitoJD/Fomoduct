@@ -228,13 +228,7 @@ function App() {
     <div className="app">
       <div className="content-wrapper">
         {/* Header */}
-        <Header
-          isMenuOpen={isMenuOpen}
-          isSettingsOpen={isSettingsOpen}
-          onToggleMenu={toggleMenu}
-          onToggleSettings={toggleSettings}
-          onTimerClick={handleTimerNavigation}
-        />
+        <Header />
 
         {/* Bottom Dock Navigation */}
         <Dock
